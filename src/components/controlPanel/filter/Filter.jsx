@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFilter } from '../../../contexts/FilterContext';
 import arrow from '../../../assets/arrow.png';
 import RegionDrop from './RegionDrop';
@@ -7,6 +7,15 @@ import AreaDrop from './AreaDrop';
 import BedroomDrop from './BedroomDrop';
 
 const Filter = () => {
+  const ref = useRef();
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
+
   const {
     isOpenRegion,
     setIsOpenRegion,
@@ -18,19 +27,40 @@ const Filter = () => {
     isOpenArea,
   } = useFilter();
 
+  const handleClickOutside = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      setIsOpenRegion(false);
+      setIsOpenPrice(false);
+      setIsOpenArea(false);
+      setIsOpenBedroom(false);
+    }
+  };
+
   const handleDropdownOpen = (dropdown) => {
     switch (dropdown) {
       case 'region':
         setIsOpenRegion((prevState) => !prevState);
+        setIsOpenPrice(false);
+        setIsOpenArea(false);
+        setIsOpenBedroom(false);
         break;
       case 'price':
         setIsOpenPrice((prevState) => !prevState);
+        setIsOpenRegion(false);
+        setIsOpenArea(false);
+        setIsOpenBedroom(false);
         break;
       case 'area':
         setIsOpenArea((prevState) => !prevState);
+        setIsOpenRegion(false);
+        setIsOpenBedroom(false);
+        setIsOpenPrice(false);
         break;
       case 'bedroom':
         setIsOpenBedroom((prevState) => !prevState);
+        setIsOpenRegion(false);
+        setIsOpenPrice(false);
+        setIsOpenArea(false);
         break;
       default:
         return null;
@@ -38,7 +68,7 @@ const Filter = () => {
   };
 
   return (
-    <div className="filter_container">
+    <div ref={ref} className="filter_container">
       <div className="filter_item_container region">
         <div onClick={() => handleDropdownOpen('region')}>
           <div className="filter_btn_wrapper">
