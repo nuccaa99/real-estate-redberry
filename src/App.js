@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from './components/header/Header';
-import ControlPanel from './components/ControlPanel';
+import AppRoutes from './AppRoutes';
 
 const App = () => {
   return (
     <div>
       <Header />
-      <ControlPanel />
+      <AppRoutes />
     </div>
   );
 };
