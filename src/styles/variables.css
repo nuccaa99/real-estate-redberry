@@ -1,0 +1,46 @@
+:root {
+  --border-color: #dbdbdb;
+  --hover-color: #f3f3f3;
+
+  --bright-color: #f93b1d;
+  --dark-font: #021526;
+  --light-font: #021526cc;
+  --checkbox-color: #45a849;
+  --dark-border-color: #808a93;
+
+  --font: 'FiraGo', sans-serif;
+}
+
+@font-face {
+  font-family: 'FiraGo';
+  src: url('./fonts/FiraGO-Bold.woff') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FiraGo';
+  src: url('./fonts/FiraGO-Light.woff') format('woff2');
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FiraGo';
+  src: url('./fonts/FiraGO-Heavy.woff') format('woff2');
+  font-weight: bolder;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FiraGo';
+  src: url('./fonts/FiraGO-Medium.woff') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FiraGo';
+  src: url('./fonts/FiraGO-Regular.woff') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

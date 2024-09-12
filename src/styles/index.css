@@ -1,0 +1,374 @@
+@import url(reset.css);
+@import url(variables.css);
+
+.error_txt {
+  color: red;
+  font-weight: 800;
+}
+.upside {
+  transform: rotate(180deg);
+}
+.hidden {
+  display: none;
+}
+body {
+  font-family: var(--font);
+  color: var(--dark-font);
+}
+/* header */
+
+header {
+  padding: 38px 162px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logo_img {
+  width: 150px;
+}
+.logo_img:hover {
+  cursor: pointer;
+}
+/* ControlPanel */
+.control_panel_container {
+  padding: 77px 162px 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* controlpanel btns */
+.controlpanel_btns_container {
+  display: flex;
+  column-gap: 16px;
+}
+
+.controlpanel_btn {
+  font-size: 16px;
+  padding-block: 10px;
+  border-radius: 10px;
+  border: none;
+  font-family: var(--font);
+}
+.controlpanel_btn:hover {
+  cursor: pointer;
+}
+
+.controlpanel_btn.add_listing {
+  width: 230px;
+  color: #fff;
+  background-color: var(--bright-color);
+}
+.controlpanel_btn.add_agent {
+  width: 203px;
+  color: var(--bright-color);
+  background-color: #fff;
+  border: 1px solid var(--bright-color);
+}
+/* filter  */
+
+.filter_container {
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  column-gap: 24px;
+}
+
+.filter_item_container.region,
+.filter_item_container.price,
+.filter_item_container.area,
+.filter_item_container.bedroom {
+  position: relative;
+}
+
+.filter_btn_wrapper {
+  display: flex;
+  column-gap: 4px;
+  padding: 8px 14px;
+  align-items: center;
+  border-radius: 6px;
+  color: var(--dark-font);
+}
+
+.filter_btn {
+  font-family: var(--font);
+  font-weight: bold;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+}
+
+.filter_btn:hover {
+  cursor: pointer;
+}
+
+.filter_btn_wrapper:hover {
+  background-color: var(--hover-color);
+  cursor: pointer;
+}
+
+/* dropdowns */
+
+.dropdown {
+  background-color: #fff;
+  z-index: 100;
+  width: 731px;
+  height: 284px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  padding: 24px;
+}
+
+.dropdown_title {
+  color: var(--dark-font);
+  font-weight: bold;
+}
+
+.region_list {
+  height: 80%;
+  padding-block: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  flex-wrap: wrap;
+}
+
+.region_list_item {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.btn_wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dropdown_btn {
+  border-radius: 8px;
+  padding: 8px 14px;
+  background-color: var(--bright-color);
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  line-height: 16.8px;
+  justify-self: flex-end;
+  font-family: var(--font);
+}
+
+input[type='checkbox'] {
+  accent-color: var(--checkbox-color);
+  transform: scale(1.5);
+}
+
+input[type='checkbox']:hover {
+  cursor: pointer;
+}
+
+/* region dropdown */
+
+.region.dropdown {
+  position: absolute;
+  top: 56px;
+  left: -6px;
+}
+
+/* price dropdown */
+
+.price.dropdown,
+.area.dropdown {
+  width: 382px;
+  height: 372px;
+  position: absolute;
+  top: 56px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+
+.text_input_wrappers {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text_input_wrapper {
+  position: relative;
+}
+
+.text_input {
+  width: 155px;
+  height: 42px;
+  border-radius: 6px;
+  border: 1px solid var(--dark-border-color);
+  padding: 10px 12.5px;
+  font-family: var(--font);
+}
+
+.text_input_wrapper.price::before {
+  content: '₾';
+  position: absolute;
+  right: 12.5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--dark-font);
+}
+
+.text_input_wrapper.area::before {
+  content: 'მ²';
+  position: absolute;
+  right: 12.5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--dark-font);
+}
+
+.range_list_container {
+  display: flex;
+  column-gap: 24px;
+  padding-bottom: 8px;
+}
+
+.range_list_title {
+  font-size: 14px;
+  font-weight: bold;
+  padding-bottom: 16px;
+}
+
+.range_list_wrapper {
+  width: 50%;
+}
+
+.range_list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.range_item {
+  color: var(--light-font);
+  font-size: 14px;
+  line-height: 16.8px;
+}
+
+/* bedroom */
+.bedroom.dropdown {
+  position: absolute;
+  top: 56px;
+  width: 282px;
+  height: 198px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bedroom.dropdown_title {
+  padding-bottom: 24px;
+}
+
+input[type='number'] {
+  text-align: center;
+  width: 41px;
+  height: 42px;
+  color: var(--light-font);
+  font-size: 14px;
+  border: 1px solid var(--dark-border-color);
+  border-radius: 6px;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+/* input[type='number'] {
+  -moz-appearance: textfield;
+} */
+
+/* media queries */
+
+@media (max-width: 1600px) {
+  /* header */
+  header,
+  .control_panel_container {
+    padding-inline: 81px;
+  }
+}
+
+@media (max-width: 1440px) {
+  /* header */
+  header,
+  .control_panel_container {
+    padding-inline: 81px;
+  }
+  .control_panel_container {
+    flex-direction: column;
+    row-gap: 24px;
+  }
+  .controlpanel_btns_container {
+    order: -1;
+  }
+}
+
+@media (max-width: 990px) {
+  /* filter */
+  .control_panel_container {
+    padding-top: 38px;
+  }
+
+  .filter_container {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 12px;
+  }
+  .filter_btn_wrapper {
+    padding: 2px;
+  }
+  .filter_btn,
+  .dropdown_title,
+  .region_list_item,
+  .range_list_title,
+  .controlpanel_btn {
+    font-size: 10px;
+  }
+  .dropdown {
+    height: auto;
+    width: 250px;
+  }
+  .region.dropdown,
+  .price.dropdown,
+  .area.dropdown,
+  .bedroom.dropdown {
+    top: 30px;
+  }
+  .price.dropdown,
+  .area.dropdown,
+  .bedroom.dropdown {
+    height: auto;
+    width: 250px;
+  }
+  .dropdown_btn {
+    font-size: 10px;
+  }
+
+  .controlpanel_btns_container {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 12px;
+  }
+  .controlpanel_btn.add_agent {
+    width: 230px;
+  }
+  .text_input_wrappers {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
+  .text_input {
+    width: 100%;
+  }
+}
