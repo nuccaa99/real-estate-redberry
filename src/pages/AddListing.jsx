@@ -50,11 +50,11 @@ const AddListing = () => {
           <h3 className="form_title">გარიგების ტიპი</h3>
           <div className="transaction_type_inputs_wrapper">
             <label>
-              <input type="radio" value="Option 1" />
+              <input type="radio" name="radio" value="Option 1" />
               იყიდება
             </label>
             <label>
-              <input type="radio" value="Option 2" />
+              <input type="radio" name="radio" value="Option 2" />
               ქირავდება
             </label>
           </div>
@@ -260,8 +260,8 @@ const AddListing = () => {
           </div>
         </div>
         <div className="form_btns_container">
-          <button className='form_btn cancel'>გაუქმება</button>
-          <button className='form_btn add'>დაამატე ლისტინგი</button>
+          <button className="form_btn cancel">გაუქმება</button>
+          <button className="form_btn add">დაამატე ლისტინგი</button>
         </div>
       </form>
     </div>

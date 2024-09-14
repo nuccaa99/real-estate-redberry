@@ -440,8 +440,10 @@ input[type='file'] {
   top: 55.8px;
   width: 100%;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  height: 250px;
+  height: 240px;
   overflow-y: scroll;
+  border-radius: 0px 0px 6px 6px;
+  border-bottom: 1px solid var(--dark-border-color);
 }
 
 .custom_dropdown_options::-webkit-scrollbar {
@@ -460,10 +462,12 @@ input[type='file'] {
   border-right: 1px solid var(--dark-border-color);
   border-bottom: 1px solid var(--dark-border-color);
   padding: 10px 12.5px;
+  font-size: 14px;
 }
 
 .custom_dropdown_option:last-child {
   border-radius: 0px 0px 6px 6px;
+  border-bottom: 0px;
 }
 
 .form_btns_container {
