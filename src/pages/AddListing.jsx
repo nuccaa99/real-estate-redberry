@@ -104,7 +104,7 @@ const AddListing = () => {
                 }
                 onClick={() => setIsOpenRegion(!isOpenRegion)}
               >
-                <span>Select an option</span>
+                <span></span>
                 <img
                   src={arrow}
                   alt="arrow"
@@ -131,7 +131,7 @@ const AddListing = () => {
                 }
                 onClick={() => setIsOpenCity(!isOpenCity)}
               >
-                <span>Select an option</span>
+                <span></span>
                 <img
                   src={arrow}
                   alt="arrow"
@@ -239,7 +239,7 @@ const AddListing = () => {
               }
               onClick={() => setIsOpenAgent(!isOpenAgent)}
             >
-              <span>Select an option</span>
+              <span></span>
               <img
                 src={arrow}
                 alt="arrow"
@@ -258,6 +258,10 @@ const AddListing = () => {
               </div>
             )}
           </div>
+        </div>
+        <div className="form_btns_container">
+          <button className='form_btn cancel'>გაუქმება</button>
+          <button className='form_btn add'>დაამატე ლისტინგი</button>
         </div>
       </form>
     </div>

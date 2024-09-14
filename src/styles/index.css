@@ -45,7 +45,8 @@ header {
   column-gap: 16px;
 }
 
-.controlpanel_btn {
+.controlpanel_btn,
+.form_btn {
   font-size: 16px;
   padding-block: 10px;
   border-radius: 10px;
@@ -53,12 +54,14 @@ header {
   font-family: var(--font);
 }
 
-.controlpanel_btn.add_listing {
+.controlpanel_btn.add_listing,
+.form_btn.add {
   width: 230px;
   color: #fff;
   background-color: var(--bright-color);
 }
-.controlpanel_btn.add_agent {
+.controlpanel_btn.add_agent,
+.form_btn.cancel {
   width: 203px;
   color: var(--bright-color);
   background-color: #fff;
@@ -191,6 +194,13 @@ input[type='checkbox']:hover {
 .text_input_wrapper {
   position: relative;
 }
+.text_input {
+  width: 155px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--dark-border-color);
+  font-family: var(--font);
+}
 
 .text_input_wrapper.price::before {
   content: '₾';
@@ -318,6 +328,7 @@ form {
 input[type='radio'] {
   transform: scale(1.5);
   accent-color: var(--dark-font);
+  cursor: pointer;
 }
 
 .transaction_type_inputs_wrapper > label {
@@ -422,6 +433,28 @@ input[type='file'] {
 .custom_dropdown.open {
   border-radius: 6px 6px 0px 0px;
 }
+
+.custom_dropdown_options {
+  background-color: #fff;
+  position: absolute;
+  top: 55.8px;
+  width: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  height: 250px;
+  overflow-y: scroll;
+}
+
+.custom_dropdown_options::-webkit-scrollbar {
+  background-color: var(--border-color);
+  width: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.custom_dropdown_options::-webkit-scrollbar-thumb {
+  background-color: var(--dark-font);
+  border-radius: 10px;
+}
+
 .custom_dropdown_option {
   border-left: 1px solid var(--dark-border-color);
   border-right: 1px solid var(--dark-border-color);
@@ -431,6 +464,20 @@ input[type='file'] {
 
 .custom_dropdown_option:last-child {
   border-radius: 0px 0px 6px 6px;
+}
+
+.form_btns_container {
+  display: flex;
+  column-gap: 15px;
+  justify-content: flex-end;
+}
+
+.form_btn.cancel {
+  width: 103px;
+}
+
+.form_btn.add {
+  width: 187px;
 }
 
 /* media queries */
@@ -481,7 +528,8 @@ input[type='file'] {
   .dropdown_title,
   .region_list_item,
   .range_list_title,
-  .controlpanel_btn {
+  .controlpanel_btn,
+  .form_btn {
     font-size: 10px;
   }
   .dropdown {
