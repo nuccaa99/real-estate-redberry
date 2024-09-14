@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useFilter } from '../../../contexts/FilterContext';
-import arrow from '../../../assets/arrow.png';
+import arrow from '../../../assets/arrow.svg';
 import RegionDrop from './RegionDrop';
 import PriceDrop from './PriceDrop';
 import AreaDrop from './AreaDrop';

@@ -15,6 +15,9 @@ body {
   font-family: var(--font);
   color: var(--dark-font);
 }
+button:hover {
+  cursor: pointer;
+}
 /* header */
 
 header {
@@ -48,9 +51,6 @@ header {
   border-radius: 10px;
   border: none;
   font-family: var(--font);
-}
-.controlpanel_btn:hover {
-  cursor: pointer;
 }
 
 .controlpanel_btn.add_listing {
@@ -96,10 +96,6 @@ header {
   border: none;
   background-color: transparent;
   font-size: 16px;
-}
-
-.filter_btn:hover {
-  cursor: pointer;
 }
 
 .filter_btn_wrapper:hover {
@@ -196,15 +192,6 @@ input[type='checkbox']:hover {
   position: relative;
 }
 
-.text_input {
-  width: 155px;
-  height: 42px;
-  border-radius: 6px;
-  border: 1px solid var(--dark-border-color);
-  padding: 10px 12.5px;
-  font-family: var(--font);
-}
-
 .text_input_wrapper.price::before {
   content: '₾';
   position: absolute;
@@ -289,6 +276,163 @@ input[type='number']::-webkit-inner-spin-button {
   -moz-appearance: textfield;
 } */
 
+/* add listing page */
+.addlisting_container {
+  padding: 62px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 61px;
+  align-items: center;
+}
+
+.addlisting_page_title {
+  font-size: 32px;
+  width: 100%;
+  text-align: center;
+}
+
+form {
+  width: 790px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 80px;
+}
+
+.form_title {
+  font-size: 16px;
+  line-height: 19.54px;
+  font-weight: bold;
+}
+.transaction_type_wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.transaction_type_inputs_wrapper {
+  display: flex;
+  column-gap: 84px;
+  align-items: center;
+}
+
+input[type='radio'] {
+  transform: scale(1.5);
+  accent-color: var(--dark-font);
+}
+
+.transaction_type_inputs_wrapper > label {
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+  font-size: 14px;
+}
+
+.location_wrapper,
+.details_wrapper,
+.agent_wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 22px;
+}
+
+.location_inputs_wrapper,
+.details_inputs_wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 20px;
+  justify-content: space-between;
+}
+
+.input_wrapper {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.form_text_input,
+.custom_dropdown {
+  font-family: var(--font);
+  border: 1px solid var(--dark-border-color);
+  padding: 10px 12.5px;
+  border-radius: 6px;
+}
+
+.form_label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form_validation_warning {
+  font-size: 14px;
+  padding-left: 7px;
+}
+.input_wrapper.textarea,
+.input_wrapper.image {
+  width: 100%;
+}
+.input_wrapper > textarea {
+  width: 100%;
+  border-radius: 6px;
+  padding: 10px;
+  resize: none;
+}
+.form_label.image {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+.image_upload_container {
+  width: 100%;
+  height: 120px;
+  border: 1px dashed var(--dark-border-color);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type='file'] {
+  display: none;
+  position: relative;
+}
+
+.image_upload_btn:hover {
+  cursor: pointer;
+}
+
+/* custom dropdown */
+
+.custom_dropdown:hover,
+.custom_dropdown_option:hover {
+  cursor: pointer;
+}
+.input_wrapper.form_dropdown {
+  gap: 0px;
+  position: relative;
+}
+.custom_dropdown {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.custom_dropdown.open {
+  border-radius: 6px 6px 0px 0px;
+}
+.custom_dropdown_option {
+  border-left: 1px solid var(--dark-border-color);
+  border-right: 1px solid var(--dark-border-color);
+  border-bottom: 1px solid var(--dark-border-color);
+  padding: 10px 12.5px;
+}
+
+.custom_dropdown_option:last-child {
+  border-radius: 0px 0px 6px 6px;
+}
+
 /* media queries */
 
 @media (max-width: 1600px) {
@@ -311,6 +455,11 @@ input[type='number']::-webkit-inner-spin-button {
   }
   .controlpanel_btns_container {
     order: -1;
+  }
+
+  /* add listing page */
+  .addlisting_page_title {
+    font-size: 25px;
   }
 }
 

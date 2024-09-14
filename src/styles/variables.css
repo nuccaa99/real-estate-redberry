@@ -9,6 +9,7 @@
   --dark-border-color: #808a93;
 
   --font: 'FiraGo', sans-serif;
+  --sec-font: 'HelveticaNeueBlack', sans-serif;
 }
 
 @font-face {
@@ -41,6 +42,13 @@
 @font-face {
   font-family: 'FiraGo';
   src: url('./fonts/FiraGO-Regular.woff') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueBlack';
+  src: url('./fonts/HelveticaNeueBlack.woff') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
