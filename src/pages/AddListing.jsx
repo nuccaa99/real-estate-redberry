@@ -6,15 +6,7 @@ import { fetchRegions, fetchCities } from '../api/index';
 
 import FormDropdown from '../components/form/FormDropdown';
 import ValidationWarning from '../components/form/ValidationWarning';
-
-const SELECTION_TYPES = {
-  REGION: 'region',
-  CITY: 'city',
-  AGENT: 'agent',
-};
-
-const NUMBERREGEX = /^\d+$/;
-const DECIMALREGEX = /^[0-9.,]+$/;
+import { SELECTION_TYPES, validationRules } from '../helper';
 
 const AddListing = () => {
   const [listing, setListing] = useState({
@@ -74,69 +66,42 @@ const AddListing = () => {
     setValidForm((prev) => ({ ...prev, [input]: condition }));
   };
 
+  const validateField = (name, value) => {
+    const isValid = validationRules[name] ? validationRules[name](value) : true;
+    handleValidation(name, isValid ? 'valid' : false);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setListing((prev) => ({ ...prev, [name]: value }));
 
-    if (name === 'address' && value.length < 2) {
-      handleValidation(name, false);
-    } else if (name === 'address') {
-      handleValidation(name, 'valid');
-    }
-
-    if (name === 'zip_code' && !NUMBERREGEX.test(value)) {
-      handleValidation(name, false);
-    } else if (name === 'zip_code') {
-      handleValidation(name, 'valid');
-    }
-
-    const words = value.trim().split(/\s+/);
-    if (name === 'description' && words.length < 5) {
-      handleValidation(name, false);
-    } else if (name === 'description') {
-      handleValidation(name, 'valid');
-    }
-
-    if (name === 'bedrooms' && !NUMBERREGEX.test(value)) {
-      handleValidation(name, false);
-    } else if (name === 'bedrooms') {
-      handleValidation(name, 'valid');
-    }
-
-    if (name === 'price' && !DECIMALREGEX.test(value)) {
-      handleValidation(name, false);
-    } else if (name === 'price') {
-      handleValidation(name, 'valid');
-    }
-
-    if (name === 'area' && !DECIMALREGEX.test(value)) {
-      handleValidation(name, false);
-    } else if (name === 'area') {
-      handleValidation(name, 'valid');
-    }
+    validateField(name, value);
   };
 
   const handleSelection = (selection, selected, selectedId) => {
-    if (selection === SELECTION_TYPES.REGION) {
-      setSelectedRegion(selected);
-      setIsOpenRegion(false);
+    const updates = {
+      [SELECTION_TYPES.REGION]: () => {
+        setSelectedRegion(selected);
+        setIsOpenRegion(false);
+        return { region_id: selectedId };
+      },
+      [SELECTION_TYPES.CITY]: () => {
+        setSelectedCity(selected);
+        setIsOpenCity(false);
+        return { city_id: selectedId };
+      },
+      [SELECTION_TYPES.AGENT]: () => {
+        setSelectedAgent(selected);
+        setIsOpenAgent(false);
+        return { agent_id: selectedId };
+      },
+    };
+
+    if (updates[selection]) {
+      const newState = updates[selection]();
       setListing((prevState) => ({
         ...prevState,
-        region_id: selectedId,
-      }));
-    } else if (selection === SELECTION_TYPES.CITY) {
-      setSelectedCity(selected);
-      setIsOpenCity(false);
-      setListing((prevState) => ({
-        ...prevState,
-        city_id: selectedId,
-      }));
-    } else {
-      setSelectedAgent(selected);
-      setIsOpenAgent(false);
-      setListing((prevState) => ({
-        ...prevState,
-        agent_id: selectedId,
+        ...newState,
       }));
     }
   };
