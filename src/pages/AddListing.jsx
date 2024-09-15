@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import tick from '../assets/tick.svg';
+
 import circle from '../assets/plus-circle.svg';
 
-import { fetchRegions } from '../api/index';
-import { fetchCities } from '../api/index';
+import { fetchRegions, fetchCities } from '../api/index';
 
-import FormDropdown from '../components/formDropdown/FormDropdown';
+import FormDropdown from '../components/form/FormDropdown';
+import ValidationWarning from '../components/form/ValidationWarning';
+
+const SELECTION_TYPES = {
+  REGION: 'region',
+  CITY: 'city',
+  AGENT: 'agent',
+};
+
+const NUMBERREGEX = /^\d+$/;
+const DECIMALREGEX = /^[0-9.,]+$/;
 
 const AddListing = () => {
   const [listing, setListing] = useState({
@@ -35,10 +44,17 @@ const AddListing = () => {
   const [isOpenRegion, setIsOpenRegion] = useState(false);
   const [isOpenCity, setIsOpenCity] = useState(false);
 
+  const [validForm, setValidForm] = useState({
+    address: true,
+    zip_code: true,
+    description: true,
+    bedrooms: true,
+    price: true,
+    area: true,
+  });
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-
-  console.log(listing);
 
   useEffect(() => {
     Promise.all([fetchRegions(), fetchCities()])
@@ -54,20 +70,61 @@ const AddListing = () => {
     e.preventDefault();
   };
 
+  const handleValidation = (input, condition) => {
+    setValidForm((prev) => ({ ...prev, [input]: condition }));
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setListing((prev) => ({ ...prev, [name]: value }));
+
+    if (name === 'address' && value.length < 2) {
+      handleValidation(name, false);
+    } else if (name === 'address') {
+      handleValidation(name, 'valid');
+    }
+
+    if (name === 'zip_code' && !NUMBERREGEX.test(value)) {
+      handleValidation(name, false);
+    } else if (name === 'zip_code') {
+      handleValidation(name, 'valid');
+    }
+
+    const words = value.trim().split(/\s+/);
+    if (name === 'description' && words.length < 5) {
+      handleValidation(name, false);
+    } else if (name === 'description') {
+      handleValidation(name, 'valid');
+    }
+
+    if (name === 'bedrooms' && !NUMBERREGEX.test(value)) {
+      handleValidation(name, false);
+    } else if (name === 'bedrooms') {
+      handleValidation(name, 'valid');
+    }
+
+    if (name === 'price' && !DECIMALREGEX.test(value)) {
+      handleValidation(name, false);
+    } else if (name === 'price') {
+      handleValidation(name, 'valid');
+    }
+
+    if (name === 'area' && !DECIMALREGEX.test(value)) {
+      handleValidation(name, false);
+    } else if (name === 'area') {
+      handleValidation(name, 'valid');
+    }
   };
 
   const handleSelection = (selection, selected, selectedId) => {
-    if (selection === 'region') {
+    if (selection === SELECTION_TYPES.REGION) {
       setSelectedRegion(selected);
       setIsOpenRegion(false);
       setListing((prevState) => ({
         ...prevState,
         region_id: selectedId,
       }));
-    } else if (selection === 'city') {
+    } else if (selection === SELECTION_TYPES.CITY) {
       setSelectedCity(selected);
       setIsOpenCity(false);
       setListing((prevState) => ({
@@ -93,6 +150,7 @@ const AddListing = () => {
           <div className="transaction_type_inputs_wrapper">
             <label htmlFor="sell">
               <input
+                required
                 value="0"
                 type="radio"
                 name="is_rental"
@@ -103,6 +161,7 @@ const AddListing = () => {
             </label>
             <label htmlFor="rent">
               <input
+                required
                 value="1"
                 type="radio"
                 name="is_rental"
@@ -121,26 +180,34 @@ const AddListing = () => {
               <label className="form_label" htmlFor="address">
                 <p>მისამართი *</p>
                 <input
-                  className="form_text_input"
+                  required
+                  className={
+                    validForm.address === false
+                      ? 'form_text_input error'
+                      : 'form_text_input'
+                  }
                   type="text"
                   name="address"
                   id="address"
                   onChange={handleInputChange}
                 />
               </label>
-
-              <div>
-                <img src={tick} alt="tick" />
-                <span className="form_validation_warning">
-                  მინიმუმ ორი სიმბოლო
-                </span>
-              </div>
+              <ValidationWarning
+                valid={validForm.address}
+                errorMsg="ჩაწერეთ ვალიდური მონაცემები"
+                validMsg="მინიმუმ ორი სიმბოლო"
+              />
             </div>
             <div className="input_wrapper">
               <label className="form_label" htmlFor="postal">
                 <p>საფოსტო ინდექსი *</p>
                 <input
-                  className="form_text_input"
+                  required
+                  className={
+                    validForm.zip_code === false
+                      ? 'form_text_input error'
+                      : 'form_text_input'
+                  }
                   type="text"
                   name="zip_code"
                   id="postal"
@@ -148,10 +215,11 @@ const AddListing = () => {
                 />
               </label>
 
-              <div>
-                <img src={tick} alt="tick" />
-                <span className="form_validation_warning">მხოლოდ რიცხვები</span>
-              </div>
+              <ValidationWarning
+                valid={validForm.zip_code}
+                errorMsg="ჩაწერეთ ვალიდური მონაცემები"
+                validMsg="მხოლოდ რიცხვები"
+              />
             </div>
             <FormDropdown
               label="რეგიონი"
@@ -162,7 +230,7 @@ const AddListing = () => {
               handleSelection={handleSelection}
               error={error}
               isLoading={isLoading}
-              selectionType="region"
+              selectionType={SELECTION_TYPES.REGION}
             />
 
             <FormDropdown
@@ -174,7 +242,7 @@ const AddListing = () => {
               handleSelection={handleSelection}
               error={error}
               isLoading={isLoading}
-              selectionType="city"
+              selectionType={SELECTION_TYPES.CITY}
             />
           </div>
         </div>
@@ -186,7 +254,12 @@ const AddListing = () => {
               <label className="form_label" htmlFor="price">
                 <p>ფასი</p>
                 <input
-                  className="form_text_input"
+                  required
+                  className={
+                    validForm.price === false
+                      ? 'form_text_input error'
+                      : 'form_text_input'
+                  }
                   type="text"
                   name="price"
                   id="price"
@@ -194,16 +267,22 @@ const AddListing = () => {
                 />
               </label>
 
-              <div>
-                <img src={tick} alt="tick" />
-                <span className="form_validation_warning">მხოლოდ რიცხვები</span>
-              </div>
+              <ValidationWarning
+                valid={validForm.price}
+                errorMsg="ჩაწერეთ ვალიდური მონაცემები"
+                validMsg="მხოლოდ რიცხვები"
+              />
             </div>
             <div className="input_wrapper">
               <label className="form_label" htmlFor="area">
                 <p>ფართობი</p>
                 <input
-                  className="form_text_input"
+                  required
+                  className={
+                    validForm.area === false
+                      ? 'form_text_input error'
+                      : 'form_text_input'
+                  }
                   type="text"
                   name="area"
                   id="area"
@@ -211,17 +290,23 @@ const AddListing = () => {
                 />
               </label>
 
-              <div>
-                <img src={tick} alt="tick" />
-                <span className="form_validation_warning">მხოლოდ რიცხვები</span>
-              </div>
+              <ValidationWarning
+                valid={validForm.area}
+                errorMsg="ჩაწერეთ ვალიდური მონაცემები"
+                validMsg="მხოლოდ რიცხვები"
+              />
             </div>
 
             <div className="input_wrapper">
               <label className="form_label" htmlFor="bedrooms">
                 <p>საძინებლების რაოდენობა *</p>
                 <input
-                  className="form_text_input"
+                  required
+                  className={
+                    validForm.bedrooms === false
+                      ? 'form_text_input error'
+                      : 'form_text_input'
+                  }
                   type="text"
                   name="bedrooms"
                   id="bedrooms"
@@ -229,15 +314,18 @@ const AddListing = () => {
                 />
               </label>
 
-              <div>
-                <img src={tick} alt="tick" />
-                <span className="form_validation_warning">მხოლოდ რიცხვები</span>
-              </div>
+              <ValidationWarning
+                valid={validForm.bedrooms}
+                errorMsg="ჩაწერეთ ვალიდური მონაცემები"
+                validMsg="მხოლოდ რიცხვები"
+              />
             </div>
             <div className="input_wrapper textarea">
               <label className="form_label" htmlFor="description">
                 <p>აღწერა *</p>
                 <textarea
+                  className={validForm.description === false ? 'error' : ''}
+                  required
                   name="description"
                   id="description"
                   rows="8"
@@ -245,18 +333,23 @@ const AddListing = () => {
                 ></textarea>
               </label>
 
-              <div>
-                <img src={tick} alt="tick" />
-                <span className="form_validation_warning">
-                  მინიმუმ ხუთი სიტყვა
-                </span>
-              </div>
+              <ValidationWarning
+                valid={validForm.description}
+                errorMsg="ჩაწერეთ ვალიდური მონაცემები"
+                validMsg="მინიმუმ ხუთი სიტყვა"
+              />
             </div>
             <div className="input_wrapper image">
               <label className="form_label image" htmlFor="image">
                 ატვირთეთ ფოტო *
                 <div className="image_upload_container">
-                  <input type="file" accept="image/*" name="image" id="image" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="image"
+                    id="image"
+                    required
+                  />
                   <img
                     src={circle}
                     alt="plus circle"
@@ -278,7 +371,7 @@ const AddListing = () => {
             handleSelection={handleSelection}
             error={error}
             isLoading={isLoading}
-            selectionType="agent"
+            selectionType={SELECTION_TYPES.AGENT}
           />
         </div>
         <div className="form_btns_container">

@@ -23,7 +23,7 @@ const FormDropdown = ({
         <span>{selected}</span>
         <img src={arrow} alt="arrow" className={isOpen ? 'upside' : ''} />
       </div>
-      {error && <h3 className="error_msg">{error}</h3>}
+      {error && <h3 className="error_txt">{error}</h3>}
 
       {isOpen && (
         <div className="custom_dropdown_options">

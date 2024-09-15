@@ -8,6 +8,9 @@
   --checkbox-color: #45a849;
   --dark-border-color: #808a93;
 
+  --filter: invert(50%) sepia(66%) saturate(7469%) hue-rotate(350deg)
+    brightness(98%) contrast(99%);
+
   --font: 'FiraGo', sans-serif;
   --sec-font: 'HelveticaNeueBlack', sans-serif;
 }
