@@ -108,6 +108,12 @@ const AddListing = () => {
     }
   };
 
+  const isFormValid =
+    Object.values(validForm).every((isValid) => isValid === 'valid') &&
+    selectedAgent &&
+    selectedRegion &&
+    selectedCity;
+
   return (
     <div className="addlisting_container">
       <h2 className="addlisting_page_title">ლისტინგის დამატება</h2>
@@ -346,9 +352,7 @@ const AddListing = () => {
           <button
             className="form_btn add"
             type="submit"
-            disabled={
-              !Object.values(validForm).every((isValid) => isValid === 'valid')
-            }
+            disabled={!isFormValid}
           >
             დაამატე ლისტინგი
           </button>
