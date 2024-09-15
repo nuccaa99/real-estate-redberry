@@ -1,7 +1,7 @@
 import React from 'react';
-import Filter from './controlPanel/filter/Filter';
+import Filter from './filter/Filter';
 import { useNavigate } from 'react-router-dom';
-import routes from '../constants/routes';
+import routes from '../../constants/routes';
 
 const ControlPanel = () => {
   const navigate = useNavigate();

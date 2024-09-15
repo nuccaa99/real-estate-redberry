@@ -1,5 +1,5 @@
 import React from 'react';
-import ControlPanel from '../components/ControlPanel';
+import ControlPanel from '../components/controlPanel/ControlPanel';
 
 const Home = () => {
   return (
