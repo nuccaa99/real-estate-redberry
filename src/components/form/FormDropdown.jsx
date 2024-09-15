@@ -6,6 +6,7 @@ const FormDropdown = ({
   label,
   options,
   selected,
+  selectedRegion,
   isOpen,
   toggleDropdown,
   handleSelection,
@@ -14,7 +15,13 @@ const FormDropdown = ({
   selectionType,
 }) => {
   return (
-    <div className="input_wrapper form_dropdown">
+    <div
+      className={
+        selectionType === 'city' && !selectedRegion
+          ? 'input_wrapper form_dropdown hidden'
+          : 'input_wrapper form_dropdown'
+      }
+    >
       <label className="form_label">{label}</label>
       <div
         className={isOpen ? 'custom_dropdown open' : 'custom_dropdown'}
@@ -41,7 +48,7 @@ const FormDropdown = ({
                   handleSelection(selectionType, option.name, option.id)
                 }
               >
-                {label === 'აირჩიე'
+                {selectionType === 'agent'
                   ? option.name + ' ' + option.surname
                   : option.name}
               </div>

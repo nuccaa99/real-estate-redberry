@@ -468,6 +468,9 @@ input[type='file'] {
   gap: 0px;
   position: relative;
 }
+.input_wrapper.form_dropdown.hidden {
+  display: none;
+}
 .custom_dropdown {
   margin-top: 5px;
   display: flex;

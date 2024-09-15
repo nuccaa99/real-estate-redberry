@@ -29,6 +29,8 @@ const AddListing = () => {
   const [cities, setCities] = useState([]);
   const [agents, setAgents] = useState([]);
 
+  const [filteredCities, setFilteredCities] = useState([]);
+
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedAgent, setSelectedAgent] = useState('');
@@ -85,6 +87,10 @@ const AddListing = () => {
       [SELECTION_TYPES.REGION]: () => {
         setSelectedRegion(selected);
         setIsOpenRegion(false);
+
+        const cityData = cities.filter((city) => city.region_id === selectedId);
+        setFilteredCities(cityData);
+
         return { region_id: selectedId };
       },
       [SELECTION_TYPES.CITY]: () => {
@@ -208,7 +214,8 @@ const AddListing = () => {
 
             <FormDropdown
               label="ქალაქი"
-              options={cities}
+              options={filteredCities}
+              selectedRegion={selectedRegion}
               selected={selectedCity}
               isOpen={isOpenCity}
               toggleDropdown={() => setIsOpenCity(!isOpenCity)}
