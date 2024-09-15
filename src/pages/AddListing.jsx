@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import circle from '../assets/plus-circle.svg';
 
-import { fetchRegions, fetchCities } from '../api/index';
+import { fetchRegions, fetchCities, fetchAgents } from '../api/index';
 
 import FormDropdown from '../components/form/FormDropdown';
 import ValidationWarning from '../components/form/ValidationWarning';
@@ -27,6 +27,7 @@ const AddListing = () => {
 
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState([]);
+  const [agents, setAgents] = useState([]);
 
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -49,10 +50,11 @@ const AddListing = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    Promise.all([fetchRegions(), fetchCities()])
-      .then(([regionsData, citiesData]) => {
+    Promise.all([fetchRegions(), fetchCities(), fetchAgents()])
+      .then(([regionsData, citiesData, agentsData]) => {
         setRegions(regionsData);
         setCities(citiesData);
+        setAgents(agentsData);
       })
       .catch((err) => setError(err.message))
       .finally(() => setIsLoading(false));
@@ -313,7 +315,7 @@ const AddListing = () => {
                     accept="image/*"
                     name="image"
                     id="image"
-                    required
+                    // required
                   />
                   <img
                     src={circle}
@@ -329,7 +331,7 @@ const AddListing = () => {
           <h3 className="form_title">აგენტი</h3>
           <FormDropdown
             label="აირჩიე"
-            options={cities}
+            options={agents}
             selected={selectedAgent}
             isOpen={isOpenAgent}
             toggleDropdown={() => setIsOpenAgent(!isOpenAgent)}
@@ -341,7 +343,13 @@ const AddListing = () => {
         </div>
         <div className="form_btns_container">
           <button className="form_btn cancel">გაუქმება</button>
-          <button className="form_btn add" type="submit">
+          <button
+            className="form_btn add"
+            type="submit"
+            disabled={
+              !Object.values(validForm).every((isValid) => isValid === 'valid')
+            }
+          >
             დაამატე ლისტინგი
           </button>
         </div>

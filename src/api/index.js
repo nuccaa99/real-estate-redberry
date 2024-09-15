@@ -33,3 +33,17 @@ export async function fetchCities() {
     throw new Error(`Fetch failed: ${error.message}`);
   }
 }
+
+export async function fetchAgents() {
+  const agentUrl = url + 'agents';
+  try {
+    const response = await fetch(agentUrl, options);
+    const result = await response.json();
+
+    if (response.ok) {
+      return result;
+    }
+  } catch (error) {
+    throw new Error(`Fetch failed: ${error.message}`);
+  }
+}

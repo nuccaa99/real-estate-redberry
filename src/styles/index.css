@@ -42,6 +42,10 @@ button:hover {
 .tick.error {
   filter: var(--filter);
 }
+.form_btn.add:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 /* header */
 
 header {
@@ -452,6 +456,10 @@ input[type='file'] {
 
 /* custom dropdown */
 
+.custom_dropdown.error {
+  border-color: var(--bright-color);
+}
+
 .custom_dropdown:hover,
 .custom_dropdown_option:hover {
   cursor: pointer;
@@ -477,8 +485,8 @@ input[type='file'] {
   top: 55.8px;
   width: 100%;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  height: 240px;
-  overflow-y: scroll;
+  max-height: 240px;
+  overflow-y: auto;
   border-radius: 0px 0px 6px 6px;
   border-bottom: 1px solid var(--dark-border-color);
 }

@@ -41,7 +41,9 @@ const FormDropdown = ({
                   handleSelection(selectionType, option.name, option.id)
                 }
               >
-                {option.name}
+                {label === 'აირჩიე'
+                  ? option.name + ' ' + option.surname
+                  : option.name}
               </div>
             );
           })}
