@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import circle from '../assets/plus-circle.svg';
 
-import { fetchRegions, fetchCities, fetchAgents } from '../api/index';
+import { fetchData, postData } from '../api/index';
 
 import FormDropdown from '../components/form/FormDropdown';
 import ValidationWarning from '../components/form/ValidationWarning';
 import { SELECTION_TYPES, validationRules } from '../helper';
+
+import deleteIcon from '../assets/delete.svg';
 
 const AddListing = () => {
   const [listing, setListing] = useState({
@@ -20,9 +22,6 @@ const AddListing = () => {
     agent_id: '',
     bedrooms: '',
     is_rental: '',
-    image: '',
-    created_at: '',
-    id: '',
   });
 
   const [regions, setRegions] = useState([]);
@@ -47,12 +46,18 @@ const AddListing = () => {
     price: true,
     area: true,
   });
+  const [fileError, setFileError] = useState('');
+  const [imagePreview, setImagePreview] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    Promise.all([fetchRegions(), fetchCities(), fetchAgents()])
+    Promise.all([
+      fetchData('regions'),
+      fetchData('cities'),
+      fetchData('agents'),
+    ])
       .then(([regionsData, citiesData, agentsData]) => {
         setRegions(regionsData);
         setCities(citiesData);
@@ -62,8 +67,18 @@ const AddListing = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
+  const handlePosting = async () => {
+    try {
+      const response = await postData('real-estates', listing);
+      console.log('POST success:', response);
+    } catch (error) {
+      console.error('POST error:', error.message);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    handlePosting();
   };
 
   const handleValidation = (input, condition) => {
@@ -82,6 +97,27 @@ const AddListing = () => {
     validateField(name, value);
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const maxSize = 1048576;
+      if (file.size > maxSize) {
+        setFileError('ფოტოს ზომა არ უნდა აღემატებოდეს 1MB-ს');
+        e.target.value = null;
+      } else {
+        setFileError('');
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImagePreview(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+    const { name, value } = e.target;
+    setListing((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSelection = (selection, selected, selectedId) => {
     const updates = {
       [SELECTION_TYPES.REGION]: () => {
@@ -91,19 +127,29 @@ const AddListing = () => {
         const cityData = cities.filter((city) => city.region_id === selectedId);
         setFilteredCities(cityData);
 
-        return { region_id: selectedId };
+        return { region_id: selectedId.toString() };
       },
       [SELECTION_TYPES.CITY]: () => {
         setSelectedCity(selected);
         setIsOpenCity(false);
-        return { city_id: selectedId };
+        return { city_id: selectedId.toString() };
       },
       [SELECTION_TYPES.AGENT]: () => {
         setSelectedAgent(selected);
         setIsOpenAgent(false);
-        return { agent_id: selectedId };
+        return { agent_id: selectedId.toString() };
       },
     };
+    //  "zip_code": "3",
+    // "description": "sdh sdiufh sdifuhs iudhf sdf ",
+    // "area": "5656",
+    // "city_id": "8",
+    // "region_id": "2",
+    // "address": "43",
+    // "agent_id": 530,
+    // "bedrooms": "4",
+    // "is_rental": "0"
+    // 
 
     if (updates[selection]) {
       const newState = updates[selection]();
@@ -118,7 +164,8 @@ const AddListing = () => {
     Object.values(validForm).every((isValid) => isValid === 'valid') &&
     selectedAgent &&
     selectedRegion &&
-    selectedCity;
+    selectedCity &&
+    imagePreview;
 
   return (
     <div className="addlisting_container">
@@ -324,19 +371,41 @@ const AddListing = () => {
                 ატვირთეთ ფოტო *
                 <div className="image_upload_container">
                   <input
+                    required
                     type="file"
                     accept="image/*"
                     name="image"
                     id="image"
-                    // required
+                    onChange={handleImageChange}
                   />
-                  <img
-                    src={circle}
-                    alt="plus circle"
-                    className="image_upload_btn"
-                  />
+                  {imagePreview ? (
+                    <>
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        className="image_preview"
+                      />
+                    </>
+                  ) : (
+                    <img
+                      src={circle}
+                      alt="plus circle"
+                      className="image_upload_btn"
+                    />
+                  )}
                 </div>
+                {fileError && <p className="error_txt">{fileError}</p>}
               </label>
+              {imagePreview && (
+                <img
+                  src={deleteIcon}
+                  alt="delete icon"
+                  className="delete_icon"
+                  onClick={() => {
+                    setImagePreview(null);
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

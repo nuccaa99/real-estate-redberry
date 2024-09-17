@@ -449,11 +449,24 @@ input[type='file'] {
   display: none;
   position: relative;
 }
+.input_wrapper.image {
+  position: relative;
+}
 
 .image_upload_btn:hover {
   cursor: pointer;
 }
 
+.image_preview {
+  border-radius: 4px;
+  height: 82px;
+}
+.delete_icon {
+  position: absolute;
+  bottom: 10px;
+  right: 345px;
+  cursor: pointer;
+}
 /* custom dropdown */
 
 .custom_dropdown.error {

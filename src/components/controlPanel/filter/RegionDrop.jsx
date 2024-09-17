@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFilter } from '../../../contexts/FilterContext';
-import { fetchRegions } from '../../../api';
+import { fetchData } from '../../../api';
 
 const RegionDrop = () => {
   const { isOpenRegion } = useFilter();
@@ -11,7 +11,7 @@ const RegionDrop = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchRegions()
+    fetchData("regions")
       .then((data) => {
         setRegions(data);
       })
