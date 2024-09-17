@@ -76,7 +76,7 @@ const Filter = () => {
             <img
               src={arrow}
               alt="arrow"
-              className={isOpenRegion ? 'filter_arrow' : 'filter_arrow upside'}
+              className={isOpenRegion ? 'filter_arrow upside' : 'filter_arrow '}
             />
           </div>
         </div>
@@ -89,7 +89,7 @@ const Filter = () => {
             <img
               src={arrow}
               alt="arrow"
-              className={isOpenPrice ? 'filter_arrow' : 'filter_arrow upside'}
+              className={isOpenPrice ? 'filter_arrow upside' : 'filter_arrow'}
             />
           </div>
         </div>
@@ -105,7 +105,7 @@ const Filter = () => {
             <img
               src={arrow}
               alt="arrow"
-              className={isOpenArea ? 'filter_arrow' : 'filter_arrow upside'}
+              className={isOpenArea ? 'filter_arrow upside' : 'filter_arrow '}
             />
           </div>
         </div>
@@ -121,7 +121,9 @@ const Filter = () => {
             <img
               src={arrow}
               alt="arrow"
-              className={isOpenBedroom ? 'filter_arrow' : 'filter_arrow upside'}
+              className={
+                isOpenBedroom ? 'filter_arrow upside' : 'filter_arrow '
+              }
             />
           </div>
         </div>

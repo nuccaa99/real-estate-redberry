@@ -16,4 +16,5 @@ export const validationRules = {
   bedrooms: (value) => NUMBERREGEX.test(value),
   price: (value) => DECIMALREGEX.test(value),
   area: (value) => DECIMALREGEX.test(value),
+  is_rental: (value) => value.length >= 1,
 };

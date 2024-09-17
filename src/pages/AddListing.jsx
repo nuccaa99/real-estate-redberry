@@ -45,6 +45,7 @@ const AddListing = () => {
     bedrooms: true,
     price: true,
     area: true,
+    is_rental: true,
   });
   const [fileError, setFileError] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
@@ -67,9 +68,9 @@ const AddListing = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handlePosting = async () => {
+  const handlePosting = async (formData) => {
     try {
-      const response = await postData('real-estates', listing);
+      const response = await postData('real-estates', formData);
       console.log('POST success:', response);
     } catch (error) {
       console.error('POST error:', error.message);
@@ -78,7 +79,11 @@ const AddListing = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handlePosting();
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(listing)) {
+      formData.append(key, value);
+    }
+    handlePosting(formData);
   };
 
   const handleValidation = (input, condition) => {
@@ -89,6 +94,13 @@ const AddListing = () => {
     const isValid = validationRules[name] ? validationRules[name](value) : true;
     handleValidation(name, isValid ? 'valid' : false);
   };
+
+  const isFormValid =
+    Object.values(validForm).every((isValid) => isValid === 'valid') &&
+    selectedAgent &&
+    selectedRegion &&
+    selectedCity &&
+    imagePreview;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -110,12 +122,12 @@ const AddListing = () => {
         const reader = new FileReader();
         reader.onloadend = () => {
           setImagePreview(reader.result);
+
+          setListing((prev) => ({ ...prev, image: e.target.files[0] }));
         };
         reader.readAsDataURL(file);
       }
     }
-    const { name, value } = e.target;
-    setListing((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSelection = (selection, selected, selectedId) => {
@@ -140,16 +152,6 @@ const AddListing = () => {
         return { agent_id: selectedId.toString() };
       },
     };
-    //  "zip_code": "3",
-    // "description": "sdh sdiufh sdifuhs iudhf sdf ",
-    // "area": "5656",
-    // "city_id": "8",
-    // "region_id": "2",
-    // "address": "43",
-    // "agent_id": 530,
-    // "bedrooms": "4",
-    // "is_rental": "0"
-    // 
 
     if (updates[selection]) {
       const newState = updates[selection]();
@@ -159,13 +161,6 @@ const AddListing = () => {
       }));
     }
   };
-
-  const isFormValid =
-    Object.values(validForm).every((isValid) => isValid === 'valid') &&
-    selectedAgent &&
-    selectedRegion &&
-    selectedCity &&
-    imagePreview;
 
   return (
     <div className="addlisting_container">
