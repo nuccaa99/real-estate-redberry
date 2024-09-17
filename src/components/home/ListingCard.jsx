@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import addressicon from '../../assets/addressicon.svg';
 import bed from '../../assets/bed.svg';
 import zipicon from '../../assets/zipicon.svg';
 import areaicon from '../../assets/areaicon.svg';
 
-const Listing = ({ data }) => {
+const ListingCard = ({ data }) => {
   return (
-    <div className="listing_container">
+    <Link to={`/${data.id}`} className="listing_container">
       <div className="listing_img_wrapper">
         <img src={data.image} alt="listing" className="listing_img" />
       </div>
@@ -36,8 +37,8 @@ const Listing = ({ data }) => {
           {data.is_rental === 0 ? 'იყიდება' : 'ქირავდება'}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
-export default Listing;
+export default ListingCard;

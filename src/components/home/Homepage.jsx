@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchData } from '../../api';
 import { PuffLoader } from 'react-spinners';
-import Listing from './Listing';
+import ListingCard from './ListingCard';
 
 const Homepage = () => {
   const [listings, setListings] = useState([]);
@@ -33,7 +33,7 @@ const Homepage = () => {
     <div className="listings_container">
       {isLoading && <PuffLoader color="#fa6400" />}
       {listings.map((listing) => {
-        return <Listing key={listing.id} data={listing} />;
+        return <ListingCard key={listing.id} data={listing} />;
       })}
     </div>
   );
