@@ -20,41 +20,39 @@ export const FilterProvider = ({ children }) => {
   const [isOpenArea, setIsOpenArea] = useState(false);
   const [isOpenBedroom, setIsOpenBedroom] = useState(false);
 
-  const updateFilter = (key, value, subKey) => {
-    if (key === 'region') {
-      setFilters((prev) => ({
+  const updateFilter = (key, value) => {
+    setFilters((prev) => {
+      const newFilters = {
         ...prev,
-        region: prev.region.includes(value)
-          ? prev.region.filter((regionId) => regionId !== value)
-          : [...prev.region, value],
-      }));
-    } else if (key === 'bedroom') {
-      setFilters((prev) => ({
-        ...prev,
-        bedroom: value,
-      }));
-    } else if (key === 'priceRange' || key === 'areaRange') {
-      setFilters((prev) => ({
-        ...prev,
-        [key]: {
-          ...prev[key],
-          [subKey]: value,
-        },
-      }));
-    }
+        [key]: value,
+      };
+      filterListings(newFilters);
+      return newFilters;
+    });
   };
 
-  const filterListings = () => {
-    if (filters.region.length === 0 && filters.bedroom == 0) {
-      setFilteredListings(listings);
-    } else {
-      const filtered = listings.filter(
-        (listing) =>
-          filters.region.includes(listing.city.region_id) ||
-          listing.bedrooms == filters.bedroom
-      );
-      setFilteredListings(filtered);
-    }
+  const filterListings = (currentFilters) => {
+    const filtered = listings.filter((listing) => {
+      const regionMatch =
+        currentFilters.region.length === 0 ||
+        currentFilters.region.includes(listing.city.region_id);
+      const bedroomMatch =
+        !currentFilters.bedroom || listing.bedrooms == currentFilters.bedroom;
+      const priceMatch =
+        (!currentFilters.priceRange.min ||
+          listing.price >= parseInt(currentFilters.priceRange.min)) &&
+        (!currentFilters.priceRange.max ||
+          listing.price <= parseInt(currentFilters.priceRange.max));
+      const areaMatch =
+        (!currentFilters.areaRange.min ||
+          listing.area >= parseInt(currentFilters.areaRange.min)) &&
+        (!currentFilters.areaRange.max ||
+          listing.area <= parseInt(currentFilters.areaRange.max));
+
+      return regionMatch && bedroomMatch && priceMatch && areaMatch;
+    });
+
+    setFilteredListings(filtered);
   };
   console.log(filters);
   return (

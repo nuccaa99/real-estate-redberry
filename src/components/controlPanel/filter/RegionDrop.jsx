@@ -3,20 +3,14 @@ import { useFilter } from '../../../contexts/FilterContext';
 import { fetchData } from '../../../api';
 
 const RegionDrop = () => {
-  const {
-    regions,
-    setRegions,
-    isOpenRegion,
-    updateFilter,
-    filterListings,
-    setIsOpenRegion,
-  } = useFilter();
+  const { regions, setRegions, isOpenRegion, updateFilter, setIsOpenRegion } =
+    useFilter();
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   const [selectedRegions, setSelectedRegions] = useState([]);
-  
+
   useEffect(() => {
     fetchData('regions')
       .then((data) => {
@@ -30,8 +24,16 @@ const RegionDrop = () => {
       });
   }, [setRegions]);
 
-  const handleClick = () => {
-    filterListings();
+  const handleRegionChange = (regionId) => {
+    setSelectedRegions((prev) =>
+      prev.includes(regionId)
+        ? prev.filter((id) => id !== regionId)
+        : [...prev, regionId]
+    );
+  };
+
+  const handleApplyFilter = () => {
+    updateFilter('region', selectedRegions);
     setIsOpenRegion(false);
   };
 
@@ -57,7 +59,8 @@ const RegionDrop = () => {
                   type="checkbox"
                   id={region.id}
                   name={region.id}
-                  onChange={() => updateFilter('region', region.id)}
+                  checked={selectedRegions.includes(region.id)}
+                  onChange={() => handleRegionChange(region.id)}
                 />
                 <label htmlFor={region.id}>{region.name}</label>
               </div>
@@ -65,7 +68,7 @@ const RegionDrop = () => {
           })}
         </div>
         <div className="btn_wrapper">
-          <button className="dropdown_btn" onClick={handleClick}>
+          <button className="dropdown_btn" onClick={handleApplyFilter}>
             არჩევა
           </button>
         </div>
