@@ -243,7 +243,7 @@ const AddListing = () => {
               />
             </div>
             <FormDropdown
-              label="რეგიონი"
+              label="რეგიონი *"
               options={regions}
               selected={selectedRegion}
               isOpen={isOpenRegion}
@@ -255,7 +255,7 @@ const AddListing = () => {
             />
 
             <FormDropdown
-              label="ქალაქი"
+              label="ქალაქი *"
               options={filteredCities}
               selectedRegion={selectedRegion}
               selected={selectedCity}
@@ -274,7 +274,7 @@ const AddListing = () => {
           <div className="details_inputs_wrapper">
             <div className="input_wrapper">
               <label className="form_label" htmlFor="price">
-                <p>ფასი</p>
+                <p>ფასი *</p>
                 <input
                   required
                   className={
@@ -297,7 +297,7 @@ const AddListing = () => {
             </div>
             <div className="input_wrapper">
               <label className="form_label" htmlFor="area">
-                <p>ფართობი</p>
+                <p>ფართობი *</p>
                 <input
                   required
                   className={
@@ -407,7 +407,7 @@ const AddListing = () => {
         <div className="agent_wrapper">
           <h3 className="form_title">აგენტი</h3>
           <FormDropdown
-            label="აირჩიე"
+            label="აირჩიე *"
             options={agents}
             selected={selectedAgent}
             isOpen={isOpenAgent}
