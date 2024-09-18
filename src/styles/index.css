@@ -42,7 +42,8 @@ button:hover {
 .tick.error {
   filter: var(--filter);
 }
-.form_btn.add:disabled {
+.form_btn.add:disabled,
+.dropdown_btn:disabled {
   opacity: 0.5;
   cursor: default;
 }
@@ -180,7 +181,6 @@ header {
   color: #fff;
   font-size: 14px;
   line-height: 16.8px;
-  justify-self: flex-end;
   font-family: var(--font);
 }
 

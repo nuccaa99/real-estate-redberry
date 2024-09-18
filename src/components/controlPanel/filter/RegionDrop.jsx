@@ -8,14 +8,15 @@ const RegionDrop = () => {
     setRegions,
     isOpenRegion,
     updateFilter,
-    filterListingsByRegion,
-    filters,
-    listings,
+    filterListings,
+    setIsOpenRegion,
   } = useFilter();
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const [selectedRegions, setSelectedRegions] = useState([]);
+  
   useEffect(() => {
     fetchData('regions')
       .then((data) => {
@@ -27,7 +28,12 @@ const RegionDrop = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [setRegions]);
+
+  const handleClick = () => {
+    filterListings();
+    setIsOpenRegion(false);
+  };
 
   if (error) {
     return (
@@ -59,12 +65,7 @@ const RegionDrop = () => {
           })}
         </div>
         <div className="btn_wrapper">
-          <button
-            className="dropdown_btn"
-            onClick={() => {
-              filterListingsByRegion(listings, filters.region);
-            }}
-          >
+          <button className="dropdown_btn" onClick={handleClick}>
             არჩევა
           </button>
         </div>

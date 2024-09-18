@@ -7,8 +7,8 @@ export const FilterProvider = ({ children }) => {
 
   const [filters, setFilters] = useState({
     region: [],
-    priceRange: '',
-    areaRange: '',
+    priceRange: { min: '', max: '' },
+    areaRange: { min: '', max: '' },
     bedroom: '',
   });
 
@@ -20,7 +20,7 @@ export const FilterProvider = ({ children }) => {
   const [isOpenArea, setIsOpenArea] = useState(false);
   const [isOpenBedroom, setIsOpenBedroom] = useState(false);
 
-  const updateFilter = (key, value) => {
+  const updateFilter = (key, value, subKey) => {
     if (key === 'region') {
       setFilters((prev) => ({
         ...prev,
@@ -33,20 +33,30 @@ export const FilterProvider = ({ children }) => {
         ...prev,
         bedroom: value,
       }));
+    } else if (key === 'priceRange' || key === 'areaRange') {
+      setFilters((prev) => ({
+        ...prev,
+        [key]: {
+          ...prev[key],
+          [subKey]: value,
+        },
+      }));
     }
   };
 
-  const filterListingsByRegion = (listings, filter) => {
-    if (filter.length) {
-      const filteredListings = listings.filter((listing) =>
-        filter.includes(listing.city.region_id)
-      );
-      setFilteredListings(filteredListings);
-    } else {
+  const filterListings = () => {
+    if (filters.region.length === 0 && filters.bedroom == 0) {
       setFilteredListings(listings);
+    } else {
+      const filtered = listings.filter(
+        (listing) =>
+          filters.region.includes(listing.city.region_id) ||
+          listing.bedrooms == filters.bedroom
+      );
+      setFilteredListings(filtered);
     }
   };
-
+  console.log(filters);
   return (
     <FilterContext.Provider
       value={{
@@ -63,7 +73,7 @@ export const FilterProvider = ({ children }) => {
         setRegions,
         regions,
         setFilters,
-        filterListingsByRegion,
+        filterListings,
         listings,
         setListings,
         filteredListings,
