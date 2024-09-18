@@ -31,6 +31,7 @@ const BedroomDrop = () => {
       <div>
         <h2 className="bedroom dropdown_title">საძინებლების მიხედვით</h2>
         <input
+          className="number_input"
           type="number"
           value={localBedroom}
           onChange={handleInputChange}

@@ -171,6 +171,8 @@ header {
 .btn_wrapper {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  column-gap: 15px;
 }
 
 .dropdown_btn {
@@ -278,6 +280,10 @@ input[type='checkbox']:hover {
   line-height: 16.8px;
 }
 
+.range_item:hover {
+  cursor: pointer;
+}
+
 /* bedroom */
 .bedroom.dropdown {
   position: absolute;
@@ -293,7 +299,7 @@ input[type='checkbox']:hover {
   padding-bottom: 24px;
 }
 
-input[type='number'] {
+.number_input {
   text-align: center;
   width: 41px;
   height: 42px;

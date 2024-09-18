@@ -5,23 +5,42 @@ const AreaAndPriceDrop = ({ type, data, title, isOpen, setIsOpen }) => {
   const { filters, updateFilter } = useFilter();
   const [localRange, setLocalRange] = useState({ min: '', max: '' });
 
+  const [isValid, setIsValid] = useState(true);
+
   useEffect(() => {
     const key = type === 'price' ? 'priceRange' : 'areaRange';
     setLocalRange(filters[key]);
   }, [filters, type]);
 
+  useEffect(() => {
+    validateRange();
+  }, [localRange]);
+
   const handleInputChange = (subKey, value) => {
     setLocalRange((prev) => ({ ...prev, [subKey]: value }));
   };
 
+  const validateRange = () => {
+    if (localRange.min && localRange.max) {
+      setIsValid(Number(localRange.min) <= Number(localRange.max));
+    } else {
+      setIsValid(true);
+    }
+  };
+
   const handleApplyFilter = () => {
-    const key = type === 'price' ? 'priceRange' : 'areaRange';
-    updateFilter(key, localRange);
-    setIsOpen(false);
+    if (isValid) {
+      const key = type === 'price' ? 'priceRange' : 'areaRange';
+      updateFilter(key, localRange);
+      setIsOpen(false);
+    }
   };
 
   const handleListItemClick = (subKey, value) => {
-    setLocalRange((prev) => ({ ...prev, [subKey]: value.toString() }));
+    setLocalRange((prev) => ({ ...prev, [subKey]: value }));
+    if (localRange.min > localRange.max) {
+      setIsValid(false);
+    }
   };
 
   return (
@@ -31,7 +50,7 @@ const AreaAndPriceDrop = ({ type, data, title, isOpen, setIsOpen }) => {
         <div className="text_input_wrappers">
           <div className={`text_input_wrapper ${type}`}>
             <input
-              type="text"
+              type="number"
               className="text_input"
               placeholder="დან"
               value={localRange.min}
@@ -40,7 +59,7 @@ const AreaAndPriceDrop = ({ type, data, title, isOpen, setIsOpen }) => {
           </div>
           <div className={`text_input_wrapper ${type}`}>
             <input
-              type="text"
+              type="number"
               className="text_input"
               placeholder="მდე"
               value={localRange.max}
@@ -82,8 +101,14 @@ const AreaAndPriceDrop = ({ type, data, title, isOpen, setIsOpen }) => {
             </ul>
           </div>
         </div>
+
         <div className="btn_wrapper">
-          <button className="dropdown_btn" onClick={handleApplyFilter}>
+          {!isValid && <p className="error_txt">ჩაწერეთ ვალიდური მონაცემები</p>}
+          <button
+            className="dropdown_btn"
+            onClick={handleApplyFilter}
+            disabled={!isValid}
+          >
             არჩევა
           </button>
         </div>

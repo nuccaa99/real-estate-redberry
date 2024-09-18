@@ -12,7 +12,7 @@ const ListingCard = ({ data }) => {
         <img src={data.image} alt="listing" className="listing_img" />
       </div>
       <div className="listing_price_section">
-        <p className="listing_price">{data.price} ₾</p>
+        <p className="listing_price">{data.price.toLocaleString('fr-FR')} ₾</p>
         <div className="listing_address_wrapper">
           <img src={addressicon} alt="address icon" />
           <p>
