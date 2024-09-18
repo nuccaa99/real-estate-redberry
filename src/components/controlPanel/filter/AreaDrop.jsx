@@ -4,7 +4,7 @@ import { AREAS } from '../../../constants/index';
 import AreaAndPriceDrop from './AreaAndPriceDrop';
 
 const AreaDrop = () => {
-  const { isOpenArea } = useFilter();
+  const { isOpenArea, setIsOpenArea } = useFilter();
 
   return (
     <AreaAndPriceDrop
@@ -12,6 +12,7 @@ const AreaDrop = () => {
       type="area"
       data={AREAS}
       title="ფართობი"
+      setIsOpen={setIsOpenArea}
     />
   );
 };

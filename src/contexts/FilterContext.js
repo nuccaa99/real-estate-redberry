@@ -33,28 +33,44 @@ export const FilterProvider = ({ children }) => {
 
   const filterListings = (currentFilters) => {
     const filtered = listings.filter((listing) => {
-      const regionMatch =
-        currentFilters.region.length === 0 ||
-        currentFilters.region.includes(listing.city.region_id);
-      const bedroomMatch =
-        !currentFilters.bedroom || listing.bedrooms == currentFilters.bedroom;
-      const priceMatch =
-        (!currentFilters.priceRange.min ||
-          listing.price >= parseInt(currentFilters.priceRange.min)) &&
-        (!currentFilters.priceRange.max ||
-          listing.price <= parseInt(currentFilters.priceRange.max));
-      const areaMatch =
-        (!currentFilters.areaRange.min ||
-          listing.area >= parseInt(currentFilters.areaRange.min)) &&
-        (!currentFilters.areaRange.max ||
-          listing.area <= parseInt(currentFilters.areaRange.max));
+      const filtersToApply = [];
 
-      return regionMatch && bedroomMatch && priceMatch && areaMatch;
+      if (currentFilters.region.length > 0) {
+        filtersToApply.push(
+          currentFilters.region.includes(listing.city.region_id)
+        );
+      }
+
+      if (currentFilters.bedroom) {
+        filtersToApply.push(listing.bedrooms == currentFilters.bedroom);
+      }
+
+      if (currentFilters.priceRange.min || currentFilters.priceRange.max) {
+        const priceMatch =
+          (!currentFilters.priceRange.min ||
+            listing.price >= parseInt(currentFilters.priceRange.min)) &&
+          (!currentFilters.priceRange.max ||
+            listing.price <= parseInt(currentFilters.priceRange.max));
+        filtersToApply.push(priceMatch);
+      }
+
+      if (currentFilters.areaRange.min || currentFilters.areaRange.max) {
+        const areaMatch =
+          (!currentFilters.areaRange.min ||
+            listing.area >= parseInt(currentFilters.areaRange.min)) &&
+          (!currentFilters.areaRange.max ||
+            listing.area <= parseInt(currentFilters.areaRange.max));
+        filtersToApply.push(areaMatch);
+      }
+
+      return (
+        filtersToApply.length === 0 || filtersToApply.some((filter) => filter)
+      );
     });
 
     setFilteredListings(filtered);
   };
-  console.log(filters);
+
   return (
     <FilterContext.Provider
       value={{

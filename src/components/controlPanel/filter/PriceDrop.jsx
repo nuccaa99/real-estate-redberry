@@ -4,7 +4,7 @@ import { PRICES } from '../../../constants/index';
 import AreaAndPriceDrop from './AreaAndPriceDrop';
 
 const PriceDrop = () => {
-  const { isOpenPrice } = useFilter();
+  const { isOpenPrice, setIsOpenPrice } = useFilter();
 
   return (
     <AreaAndPriceDrop
@@ -12,6 +12,7 @@ const PriceDrop = () => {
       type="price"
       data={PRICES}
       title="ფასი"
+      setIsOpen={setIsOpenPrice}
     />
   );
 };

@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFilter } from '../../../contexts/FilterContext';
 
-const AreaAndPriceDrop = ({ type, data, title, isOpen }) => {
-  const { updateFilter } = useFilter();
+const AreaAndPriceDrop = ({ type, data, title, isOpen, setIsOpen }) => {
+  const { filters, updateFilter } = useFilter();
+  const [localRange, setLocalRange] = useState({ min: '', max: '' });
+
+  useEffect(() => {
+    const key = type === 'price' ? 'priceRange' : 'areaRange';
+    setLocalRange(filters[key]);
+  }, [filters, type]);
 
   const handleInputChange = (subKey, value) => {
+    setLocalRange((prev) => ({ ...prev, [subKey]: value }));
+  };
+
+  const handleApplyFilter = () => {
     const key = type === 'price' ? 'priceRange' : 'areaRange';
-    updateFilter(key, value, subKey);
+    updateFilter(key, localRange);
+    setIsOpen(false);
+  };
+
+  const handleListItemClick = (subKey, value) => {
+    setLocalRange((prev) => ({ ...prev, [subKey]: value.toString() }));
   };
 
   return (
@@ -19,6 +34,7 @@ const AreaAndPriceDrop = ({ type, data, title, isOpen }) => {
               type="text"
               className="text_input"
               placeholder="დან"
+              value={localRange.min}
               onChange={(e) => handleInputChange('min', e.target.value)}
             />
           </div>
@@ -27,6 +43,7 @@ const AreaAndPriceDrop = ({ type, data, title, isOpen }) => {
               type="text"
               className="text_input"
               placeholder="მდე"
+              value={localRange.max}
               onChange={(e) => handleInputChange('max', e.target.value)}
             />
           </div>
@@ -35,38 +52,40 @@ const AreaAndPriceDrop = ({ type, data, title, isOpen }) => {
           <div className="range_list_wrapper">
             <h3 className="range_list_title">მინ. {title}</h3>
             <ul className="range_list">
-              {data.map((item) =>
-                type === 'price' ? (
-                  <li className="range_item" key={item}>
-                    {item.toLocaleString('en-US')} ₾
-                  </li>
-                ) : (
-                  <li className="range_item" key={item}>
-                    {item} მ²
-                  </li>
-                )
-              )}
+              {data.map((item) => (
+                <li
+                  className="range_item"
+                  key={item}
+                  onClick={() => handleListItemClick('min', item)}
+                >
+                  {type === 'price'
+                    ? `${item.toLocaleString('en-US')} ₾`
+                    : `${item} მ²`}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="range_list_wrapper">
             <h3 className="range_list_title">მაქს. {title}</h3>
             <ul className="range_list">
-              {data.map((item) =>
-                type === 'price' ? (
-                  <li className="range_item" key={item}>
-                    {item.toLocaleString('en-US')} ₾
-                  </li>
-                ) : (
-                  <li className="range_item" key={item}>
-                    {item} მ²
-                  </li>
-                )
-              )}
+              {data.map((item) => (
+                <li
+                  className="range_item"
+                  key={item}
+                  onClick={() => handleListItemClick('max', item)}
+                >
+                  {type === 'price'
+                    ? `${item.toLocaleString('en-US')} ₾`
+                    : `${item} მ²`}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
         <div className="btn_wrapper">
-          <button className="dropdown_btn">არჩევა</button>
+          <button className="dropdown_btn" onClick={handleApplyFilter}>
+            არჩევა
+          </button>
         </div>
       </div>
     </>
