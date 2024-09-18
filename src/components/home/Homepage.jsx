@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { fetchData } from '../../api';
 import { PuffLoader } from 'react-spinners';
 import ListingCard from './ListingCard';
+import { useFilter } from '../../contexts/FilterContext';
 
 const Homepage = () => {
-  const [listings, setListings] = useState([]);
+  const { setListings, filteredListings, setFilteredListings } = useFilter();
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  console.log(listings);
+
   useEffect(() => {
     fetchData('real-estates')
       .then((data) => {
         setListings(data);
+        setFilteredListings(data);
       })
       .catch((err) => {
         setError(err.message);
@@ -19,6 +22,7 @@ const Homepage = () => {
       .finally(() => {
         setIsLoading(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (error) {
@@ -30,12 +34,19 @@ const Homepage = () => {
   }
 
   return (
-    <div className="listings_container">
-      {isLoading && <PuffLoader color="#fa6400" />}
-      {listings.map((listing) => {
-        return <ListingCard key={listing.id} data={listing} />;
-      })}
-    </div>
+    <>
+      {isLoading ? (
+        <div className="center_loader">
+          <PuffLoader color="#fa6400" className="loader" />
+        </div>
+      ) : (
+        <div className="listings_container">
+          {filteredListings.map((listing) => {
+            return <ListingCard key={listing.id} data={listing} />;
+          })}
+        </div>
+      )}
+    </>
   );
 };
 

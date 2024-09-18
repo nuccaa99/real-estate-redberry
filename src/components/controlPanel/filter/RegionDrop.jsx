@@ -3,15 +3,21 @@ import { useFilter } from '../../../contexts/FilterContext';
 import { fetchData } from '../../../api';
 
 const RegionDrop = () => {
-  const { isOpenRegion } = useFilter();
-
-  const [regions, setRegions] = useState([]);
+  const {
+    regions,
+    setRegions,
+    isOpenRegion,
+    updateFilter,
+    filterListingsByRegion,
+    filters,
+    listings,
+  } = useFilter();
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchData("regions")
+    fetchData('regions')
       .then((data) => {
         setRegions(data);
       })
@@ -41,14 +47,26 @@ const RegionDrop = () => {
           {regions.map((region) => {
             return (
               <div key={region.id} className="region_list_item">
-                <input type="checkbox" id={region.id} name={region.id} />
+                <input
+                  type="checkbox"
+                  id={region.id}
+                  name={region.id}
+                  onChange={() => updateFilter('region', region.id)}
+                />
                 <label htmlFor={region.id}>{region.name}</label>
               </div>
             );
           })}
         </div>
         <div className="btn_wrapper">
-          <button className="dropdown_btn">არჩევა</button>
+          <button
+            className="dropdown_btn"
+            onClick={() => {
+              filterListingsByRegion(listings, filters.region);
+            }}
+          >
+            არჩევა
+          </button>
         </div>
       </div>
     </>
