@@ -42,7 +42,9 @@ export const FilterProvider = ({ children }) => {
       }
 
       if (currentFilters.bedroom) {
-        filtersToApply.push(listing.bedrooms == currentFilters.bedroom);
+        filtersToApply.push(
+          Number(listing.bedrooms) === Number(currentFilters.bedroom)
+        );
       }
 
       if (currentFilters.priceRange.min || currentFilters.priceRange.max) {
