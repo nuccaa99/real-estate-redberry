@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFilter } from '../../../contexts/FilterContext';
 
 const BedroomDrop = () => {
@@ -6,6 +6,10 @@ const BedroomDrop = () => {
     useFilter();
   const [localBedroom, setLocalBedroom] = useState(filters.bedroom || '');
   const [isBedroomValid, setIsBedroomValid] = useState(true);
+
+  useEffect(() => {
+    setLocalBedroom(filters.bedroom !== null ? filters.bedroom.toString() : '');
+  }, [filters.bedroom]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;

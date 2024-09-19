@@ -3,13 +3,19 @@ import { useFilter } from '../../../contexts/FilterContext';
 import { fetchData } from '../../../api';
 
 const RegionDrop = () => {
-  const { regions, setRegions, isOpenRegion, updateFilter, setIsOpenRegion } =
-    useFilter();
+  const {
+    regions,
+    setRegions,
+    isOpenRegion,
+    updateFilter,
+    setIsOpenRegion,
+    filters,
+  } = useFilter();
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const [selectedRegions, setSelectedRegions] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState(filters.region);
 
   useEffect(() => {
     fetchData('regions')
@@ -23,6 +29,10 @@ const RegionDrop = () => {
         setIsLoading(false);
       });
   }, [setRegions]);
+
+  useEffect(() => {
+    setSelectedRegions(filters.region);
+  }, [filters.region]);
 
   const handleRegionChange = (regionId) => {
     setSelectedRegions((prev) =>
