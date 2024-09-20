@@ -5,7 +5,8 @@ import ListingCard from './ListingCard';
 import { useFilter } from '../../contexts/FilterContext';
 
 const Homepage = () => {
-  const { setListings, filteredListings, setFilteredListings } = useFilter();
+  const { setListings, filteredListings, setFilteredListings, listings } =
+    useFilter();
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -41,7 +42,9 @@ const Homepage = () => {
         </div>
       ) : (
         <div className="listings_container">
-          {filteredListings.length ? (
+          {filteredListings.length === 0 && listings.length === 0 ? (
+            <p>გთხოვთ დაამატოთ ბინა</p>
+          ) : filteredListings.length ? (
             filteredListings.map((listing) => (
               <ListingCard key={listing.id} data={listing} />
             ))
