@@ -14,7 +14,7 @@ const STARTS_WITH_5_REGEX = /^5[0-9]*$/;
 export const validationRules = {
   address: (value) => value.length >= 2,
   name: (value) => value.length >= 2,
-  sure_name: (value) => value.length >= 2,
+  surname: (value) => value.length >= 2,
   email: (value) => EMAILREGEX.test(value),
   phone: (value) => STARTS_WITH_5_REGEX.test(value),
   zip_code: (value) => NUMBERREGEX.test(value),
