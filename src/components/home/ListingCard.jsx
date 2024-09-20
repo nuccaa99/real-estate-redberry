@@ -5,9 +5,13 @@ import bed from '../../assets/bed.svg';
 import zipicon from '../../assets/zipicon.svg';
 import areaicon from '../../assets/areaicon.svg';
 
-const ListingCard = ({ data }) => {
+const ListingCard = ({ data, scrollToTop }) => {
   return (
-    <Link to={`/${data.id}`} className="listing_container">
+    <Link
+      to={`/${data.id}`}
+      className="listing_container"
+      onClick={scrollToTop}
+    >
       <div className="listing_img_wrapper">
         <img src={data.image} alt="listing" className="listing_img" />
       </div>

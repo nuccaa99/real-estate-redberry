@@ -60,7 +60,7 @@ const AddAgentModal = () => {
         reader.onloadend = () => {
           setImagePreview(reader.result);
 
-          setAgent((prev) => ({ ...prev, image: e.target.files[0] }));
+          setAgent((prev) => ({ ...prev, avatar: file }));
         };
         reader.readAsDataURL(file);
       }
@@ -69,7 +69,7 @@ const AddAgentModal = () => {
 
   const handlePosting = async (formData) => {
     try {
-      const response = await postData('real-estates', formData);
+      const response = await postData('agents', formData);
       console.log('POST success:', response);
     } catch (error) {
       console.error('POST error:', error.message);
@@ -80,7 +80,9 @@ const AddAgentModal = () => {
     e.preventDefault();
     const formData = new FormData();
     for (const [key, value] of Object.entries(agent)) {
-      formData.append(key, value);
+      if (value !== '' && value !== null) {
+        formData.append(key, value);
+      }
     }
     handlePosting(formData);
   };

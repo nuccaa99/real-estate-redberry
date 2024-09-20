@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import circle from '../assets/plus-circle.svg';
 
 import { fetchData, postData } from '../api/index';
@@ -9,8 +9,10 @@ import ValidationWarning from '../components/addListingForm/ValidationWarning';
 import { SELECTION_TYPES, validationRules } from '../helper';
 
 import deleteIcon from '../assets/delete.svg';
+import routes from '../constants/routes';
 
 const AddListing = () => {
+  const navigate = useNavigate();
   const [listing, setListing] = useState({
     price: '',
     zip_code: '',
@@ -72,6 +74,7 @@ const AddListing = () => {
     try {
       const response = await postData('real-estates', formData);
       console.log('POST success:', response);
+      navigate(routes.home);
     } catch (error) {
       console.error('POST error:', error.message);
     }
@@ -421,7 +424,12 @@ const AddListing = () => {
           />
         </div>
         <div className="form_btns_container">
-          <button className="form_btn cancel">გაუქმება</button>
+          <button
+            className="form_btn cancel"
+            onClick={() => navigate(routes.home)}
+          >
+            გაუქმება
+          </button>
           <button
             className="form_btn add"
             type="submit"

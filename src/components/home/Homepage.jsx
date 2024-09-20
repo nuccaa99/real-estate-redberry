@@ -41,9 +41,13 @@ const Homepage = () => {
         </div>
       ) : (
         <div className="listings_container">
-          {filteredListings.map((listing) => {
-            return <ListingCard key={listing.id} data={listing} />;
-          })}
+          {filteredListings.length ? (
+            filteredListings.map((listing) => (
+              <ListingCard key={listing.id} data={listing} />
+            ))
+          ) : (
+            <p>ასეთი ბინა არ მოიძებნა</p>
+          )}
         </div>
       )}
     </>

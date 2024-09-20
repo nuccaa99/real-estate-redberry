@@ -33,11 +33,22 @@ export async function fetchData(type) {
   }
 }
 
-export async function postData(endpoint, data) {
-  for (let [key, value] of data.entries()) {
-    console.log(`${key}:`, value);
+export async function fetchListing(type, id) {
+  const regionUrl = url + type + '/' + id;
+
+  try {
+    const response = await fetch(regionUrl, getOptions);
+    const result = await response.json();
+
+    if (response.ok) {
+      return result;
+    }
+  } catch (error) {
+    throw new Error(`Fetch failed: ${error.message}`);
   }
-  console.log(JSON.stringify(data));
+}
+
+export async function postData(endpoint, data) {
   const postUrl = url + endpoint;
   try {
     const response = await fetch(postUrl, postOptions(data));

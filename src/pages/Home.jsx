@@ -7,7 +7,6 @@ import AddAgentModal from '../components/Modal/AddAgentModal';
 
 const Home = () => {
   const { isModalOpen } = useModal();
-  console.log(isModalOpen);
   return (
     <div>
       <ControlPanel />
