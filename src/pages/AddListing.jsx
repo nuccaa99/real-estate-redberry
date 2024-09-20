@@ -4,8 +4,8 @@ import circle from '../assets/plus-circle.svg';
 
 import { fetchData, postData } from '../api/index';
 
-import FormDropdown from '../components/form/FormDropdown';
-import ValidationWarning from '../components/form/ValidationWarning';
+import FormDropdown from '../components/addListingForm/FormDropdown';
+import ValidationWarning from '../components/addListingForm/ValidationWarning';
 import { SELECTION_TYPES, validationRules } from '../helper';
 
 import deleteIcon from '../assets/delete.svg';

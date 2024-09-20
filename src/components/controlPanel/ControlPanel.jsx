@@ -5,9 +5,11 @@ import routes from '../../constants/routes';
 import plusBright from '../../assets/plus-bright.svg';
 import plusLight from '../../assets/plus-light.svg';
 import SelectedFilters from './filter/SelectedFilters';
+import { useModal } from '../../contexts/ModalContext';
 
 const ControlPanel = () => {
   const navigate = useNavigate();
+  const { handleModalOpen } = useModal();
   return (
     <div className="filter_section_container">
       <div className="control_panel_container">
@@ -20,7 +22,10 @@ const ControlPanel = () => {
             <img src={plusLight} alt="plus" />
             <span>ლისტინგის დამატება</span>
           </button>
-          <button className="controlpanel_btn add_agent">
+          <button
+            className="controlpanel_btn add_agent"
+            onClick={handleModalOpen}
+          >
             <img src={plusBright} alt="plus" />
             <span>აგენტის დამატება</span>
           </button>

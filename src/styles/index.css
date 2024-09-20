@@ -368,6 +368,48 @@ input[type='number']::-webkit-inner-spin-button {
   -moz-appearance: textfield;
 } */
 
+/* add agent modal */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #02152657;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.agent_modal_content {
+  background-color: #fff;
+  padding: 87px 105px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 4px 0px #00000014;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 61px;
+}
+
+.agent_modal_title {
+  font-size: 32px;
+  line-height: 38.4px;
+  font-weight: bold;
+}
+
+.agent_modal_form {
+  row-gap: 28px;
+}
+
+.agent_modal_form_section {
+  display: flex;
+  column-gap: 31px;
+}
+
 /* add listing page */
 .addlisting_container {
   padding: 62px;
