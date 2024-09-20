@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import routes from '../constants/routes';
 import { useParams } from 'react-router-dom';
 import { fetchListing } from '../api';
+import { deleteData } from '../api';
 
 import { PuffLoader } from 'react-spinners';
 
@@ -48,6 +49,20 @@ const ListingPage = () => {
 
   const regionId = listingData?.city?.region_id || null;
   const listingId = listingData?.id || null;
+
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this listing?'
+    );
+    if (confirmed) {
+      try {
+        await deleteData('real-estates', listing);
+        navigate(routes.home);
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+  };
   return (
     <div className="listing_page_container">
       <div>
@@ -134,7 +149,12 @@ const ListingPage = () => {
                 </span>
               </div>
             </section>
-            <button className="agent_page_delete_btn">ლისტინგის წაშლა</button>
+            <button
+              className="agent_page_delete_btn"
+              onClick={() => handleDelete()}
+            >
+              ლისტინგის წაშლა
+            </button>
           </div>
         </div>
       )}

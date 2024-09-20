@@ -18,6 +18,14 @@ const postOptions = (data) => ({
   body: data,
 });
 
+const deleteOptions = {
+  method: 'DELETE',
+  headers: {
+    Accept: 'application/json',
+    Authorization: token,
+  },
+};
+
 export async function fetchData(type) {
   const regionUrl = url + type;
 
@@ -63,5 +71,21 @@ export async function postData(endpoint, data) {
     }
   } catch (error) {
     throw new Error(`POST failed: ${error.message}`);
+  }
+}
+
+export async function deleteData(endpoint, id) {
+  const deleteUrl = url + endpoint + '/' + id;
+  try {
+    const response = await fetch(deleteUrl, deleteOptions);
+    if (response.ok) {
+      return await response.json();
+    } else {
+      const result = await response.json();
+      console.error('Response not OK:', result);
+      throw new Error(`DELETE failed with status: ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error(`DELETE failed: ${error.message}`);
   }
 }
