@@ -913,6 +913,36 @@ input[type='file'] {
   cursor: default;
 }
 
+/* delete modal */
+.delete_modal_content {
+  background-color: #fff;
+  border-radius: 20px;
+  width: 623px;
+  box-shadow: 5px 5px 12px 0px #02152614;
+  padding-block: 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 35px;
+  position: relative;
+}
+.delete_modal_title {
+  font-size: 20px;
+  color: #2d3648;
+}
+
+.form_btn.delete_listing {
+  padding: 10px 16px;
+  width: auto;
+}
+
+.delete_icon_delete_listing {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  cursor: pointer;
+}
+
 /* media queries */
 
 @media (max-width: 1600px) {

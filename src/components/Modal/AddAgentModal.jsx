@@ -8,7 +8,7 @@ import deleteIcon from '../../assets/delete.svg';
 import { useModal } from '../../contexts/ModalContext';
 
 const AddAgentModal = () => {
-  const { setIsModalOpen } = useModal();
+  const { setIsAgentModalOpen } = useModal();
 
   const [agent, setAgent] = useState({
     name: '',
@@ -229,7 +229,7 @@ const AddAgentModal = () => {
         <div className="form_btns_container">
           <button
             className="form_btn cancel"
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => setIsAgentModalOpen(false)}
           >
             გაუქმება
           </button>

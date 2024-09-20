@@ -9,7 +9,7 @@ import { useModal } from '../../contexts/ModalContext';
 
 const ControlPanel = () => {
   const navigate = useNavigate();
-  const { handleModalOpen } = useModal();
+  const { setIsAgentModalOpen } = useModal();
   return (
     <div className="filter_section_container">
       <div className="control_panel_container">
@@ -24,7 +24,7 @@ const ControlPanel = () => {
           </button>
           <button
             className="controlpanel_btn add_agent"
-            onClick={handleModalOpen}
+            onClick={() => setIsAgentModalOpen(true)}
           >
             <img src={plusBright} alt="plus" />
             <span>აგენტის დამატება</span>

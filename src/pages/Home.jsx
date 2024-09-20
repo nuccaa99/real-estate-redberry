@@ -6,12 +6,12 @@ import { useModal } from '../contexts/ModalContext';
 import AddAgentModal from '../components/Modal/AddAgentModal';
 
 const Home = () => {
-  const { isModalOpen } = useModal();
+  const { isAgentModalOpen } = useModal();
   return (
     <div>
       <ControlPanel />
       <Homepage />
-      {isModalOpen && (
+      {isAgentModalOpen && (
         <Modal>
           <AddAgentModal />
         </Modal>

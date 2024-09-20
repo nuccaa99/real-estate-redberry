@@ -3,15 +3,17 @@ import React, { createContext, useContext, useState } from 'react';
 const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
+  const [isAgentModalOpen, setIsAgentModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   return (
     <ModalContext.Provider
-      value={{ isModalOpen, handleModalOpen, setIsModalOpen }}
+      value={{
+        isAgentModalOpen,
+        setIsAgentModalOpen,
+        isDeleteModalOpen,
+        setIsDeleteModalOpen,
+      }}
     >
       {children}
     </ModalContext.Provider>
