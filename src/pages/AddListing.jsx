@@ -81,7 +81,9 @@ const AddListing = () => {
     e.preventDefault();
     const formData = new FormData();
     for (const [key, value] of Object.entries(listing)) {
-      formData.append(key, value);
+      if (value !== '' && value !== null) {
+        formData.append(key, value);
+      }
     }
     handlePosting(formData);
   };
@@ -123,7 +125,7 @@ const AddListing = () => {
         reader.onloadend = () => {
           setImagePreview(reader.result);
 
-          setListing((prev) => ({ ...prev, image: e.target.files[0] }));
+          setListing((prev) => ({ ...prev, image: file }));
         };
         reader.readAsDataURL(file);
       }

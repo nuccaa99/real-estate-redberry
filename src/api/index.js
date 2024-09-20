@@ -1,5 +1,6 @@
+const API_TOKEN = process.env.REACT_APP_API_KEY;
 const url = 'https://api.real-estate-manager.redberryinternship.ge/api/';
-const token = 'Bearer 9cfc56d1-a676-40ac-ab66-a9a22c9fa96e';
+const token = `Bearer ${API_TOKEN}`;
 
 const getOptions = {
   method: 'GET',
@@ -11,11 +12,10 @@ const getOptions = {
 const postOptions = (data) => ({
   method: 'POST',
   headers: {
-    'Content-Type': 'multipart/form-data',
     Accept: 'application/json',
     Authorization: token,
   },
-  body: JSON.stringify(data),
+  body: data,
 });
 
 export async function fetchData(type) {
