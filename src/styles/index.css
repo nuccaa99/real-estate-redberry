@@ -178,7 +178,6 @@ header {
 .selected_filters_container {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
   flex-wrap: wrap;
 }
