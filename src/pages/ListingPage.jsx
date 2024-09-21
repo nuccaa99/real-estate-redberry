@@ -152,6 +152,9 @@ const ListingPage = () => {
                 ლისტინგის წაშლა
               </button>
             </div>
+            <p className="listing_is_rental listing_page">
+              {listingData.is_rental === 0 ? 'იყიდება' : 'ქირავდება'}
+            </p>
           </div>
         )}
         {!isLoading && (

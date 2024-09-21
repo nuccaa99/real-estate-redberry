@@ -789,6 +789,7 @@ input[type='file'] {
   padding-block: 30px 42px;
   row-gap: 20px;
   width: 30%;
+  position: relative;
 }
 
 .price_section_wrapper {
@@ -866,6 +867,11 @@ input[type='file'] {
   border-radius: 8px;
   background-color: transparent;
   color: #676e76;
+}
+
+.listing_is_rental.listing_page {
+  top: 260px;
+  left: 110px;
 }
 
 /* similar listings */

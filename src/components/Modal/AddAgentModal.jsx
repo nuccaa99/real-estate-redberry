@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ValidationWarning from '../addListingForm/ValidationWarning';
 import { validationRules } from '../../helper';
 import { postData } from '../../api';
@@ -9,6 +9,21 @@ import { useModal } from '../../contexts/ModalContext';
 
 const AddAgentModal = () => {
   const { setIsAgentModalOpen } = useModal();
+
+  const modalRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsAgentModalOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [setIsAgentModalOpen]);
 
   const [agent, setAgent] = useState({
     name: '',
@@ -71,6 +86,7 @@ const AddAgentModal = () => {
     try {
       const response = await postData('agents', formData);
       console.log('POST success:', response);
+      setIsAgentModalOpen(false);
     } catch (error) {
       console.error('POST error:', error.message);
     }
@@ -88,7 +104,7 @@ const AddAgentModal = () => {
   };
 
   return (
-    <div className="agent_modal_content">
+    <div className="agent_modal_content" ref={modalRef}>
       <h2 className="agent_modal_title">აგენტის დამატება</h2>
       <form className="agent_modal_form" onSubmit={handleSubmit}>
         <div className="agent_modal_form_section">

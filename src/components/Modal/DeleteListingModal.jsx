@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../contexts/ModalContext';
 import x from '../../assets/x.svg';
@@ -8,6 +8,21 @@ import routes from '../../constants/routes';
 const DeleteListingModal = ({ id }) => {
   const { setIsDeleteModalOpen } = useModal();
   const navigate = useNavigate();
+
+  const modalRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsDeleteModalOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [setIsDeleteModalOpen]);
 
   const [error, setError] = useState('');
 
@@ -30,7 +45,7 @@ const DeleteListingModal = ({ id }) => {
   }
 
   return (
-    <div className="delete_modal_content">
+    <div className="delete_modal_content" ref={modalRef}>
       <h2 className="delete_modal_title">გსურთ წაშალოთ ლისტინგი?</h2>
       <div className="form_btns_container">
         <button
