@@ -580,6 +580,8 @@ input[type='file'] {
 .image_preview {
   border-radius: 4px;
   height: 82px;
+  width: 92px;
+  object-fit: cover;
 }
 .delete_icon {
   position: absolute;

@@ -244,6 +244,7 @@ const AddAgentModal = () => {
         </div>
         <div className="form_btns_container">
           <button
+            type="button"
             className="form_btn cancel"
             onClick={() => setIsAgentModalOpen(false)}
           >

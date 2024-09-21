@@ -13,6 +13,7 @@ import routes from '../constants/routes';
 
 const AddListing = () => {
   const navigate = useNavigate();
+
   const [listing, setListing] = useState({
     price: '',
     zip_code: '',
@@ -24,6 +25,7 @@ const AddListing = () => {
     agent_id: '',
     bedrooms: '',
     is_rental: '',
+    image: '',
   });
 
   const [regions, setRegions] = useState([]);
@@ -49,6 +51,7 @@ const AddListing = () => {
     area: true,
     is_rental: true,
   });
+
   const [fileError, setFileError] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -72,11 +75,11 @@ const AddListing = () => {
 
   const handlePosting = async (formData) => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await postData('real-estates', formData);
-      console.log('POST success:', response);
       navigate(routes.home);
     } catch (error) {
-      console.error('POST error:', error.message);
+      setError(error.message);
     }
   };
 
@@ -110,7 +113,6 @@ const AddListing = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setListing((prev) => ({ ...prev, [name]: value }));
-
     validateField(name, value);
   };
 
@@ -166,7 +168,6 @@ const AddListing = () => {
       }));
     }
   };
-
   return (
     <div className="addlisting_container">
       <h2 className="addlisting_page_title">ლისტინგის დამატება</h2>
@@ -403,6 +404,8 @@ const AddListing = () => {
                   className="delete_icon"
                   onClick={() => {
                     setImagePreview(null);
+                    document.getElementById('image').value = '';
+                    setListing((prev) => ({ ...prev, image: '' }));
                   }}
                 />
               )}
@@ -425,6 +428,7 @@ const AddListing = () => {
         </div>
         <div className="form_btns_container">
           <button
+            type="button"
             className="form_btn cancel"
             onClick={() => navigate(routes.home)}
           >
