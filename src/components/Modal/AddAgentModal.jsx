@@ -6,10 +6,11 @@ import { postData } from '../../api';
 import circle from '../../assets/plus-circle.svg';
 import deleteIcon from '../../assets/delete.svg';
 import { useModal } from '../../contexts/ModalContext';
+import { useAgent } from '../../contexts/AgentContext';
 
 const AddAgentModal = () => {
   const { setIsAgentModalOpen } = useModal();
-
+  const { setAgents } = useAgent();
   const modalRef = useRef();
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const AddAgentModal = () => {
     phone: '',
     avatar: '',
   });
+
   const [validForm, setValidForm] = useState({
     name: true,
     surname: true,
@@ -85,7 +87,8 @@ const AddAgentModal = () => {
   const handlePosting = async (formData) => {
     try {
       const response = await postData('agents', formData);
-      console.log('POST success:', response);
+      setAgents((prevAgents) => [...prevAgents, response]);
+
       setIsAgentModalOpen(false);
     } catch (error) {
       console.error('POST error:', error.message);

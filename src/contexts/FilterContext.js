@@ -4,7 +4,6 @@ const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
   const [regions, setRegions] = useState([]);
-  const [agents, setAgents] = useState([]);
 
   const [filters, setFilters] = useState(() => {
     const savedFilters = localStorage.getItem('filters');
@@ -90,14 +89,6 @@ export const FilterProvider = ({ children }) => {
     setFilteredListings(filtered);
   };
 
-  const addListing = (newListing) => {
-    setListings((prevListings) => {
-      const updatedListings = [...prevListings, newListing];
-      localStorage.setItem('listings', JSON.stringify(updatedListings));
-      return updatedListings;
-    });
-  };
-
   return (
     <FilterContext.Provider
       value={{
@@ -113,15 +104,12 @@ export const FilterProvider = ({ children }) => {
         isOpenArea,
         setRegions,
         regions,
-        setAgents,
-        agents,
         setFilters,
         filterListings,
         listings,
         setListings,
         filteredListings,
         setFilteredListings,
-        addListing,
       }}
     >
       {children}
