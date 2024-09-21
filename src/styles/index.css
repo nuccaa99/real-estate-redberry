@@ -1017,6 +1017,8 @@ input[type='file'] {
   .control_panel_container {
     padding-inline: 81px;
   }
+
+  /* control panel */
   .control_panel_container {
     flex-direction: column;
     row-gap: 24px;
@@ -1025,23 +1027,62 @@ input[type='file'] {
     order: -1;
   }
 
+  .filter_container {
+    column-gap: 10px;
+    position: relative;
+  }
+
+  .filter_btn_wrapper {
+    padding-inline: 6px;
+  }
+
+  /* dropdown */
+
+  .filter_item_container.region,
+  .filter_item_container.price,
+  .filter_item_container.area,
+  .filter_item_container.bedroom {
+    position: initial;
+  }
+  .region.dropdown,
+  .price.dropdown,
+  .area.dropdown,
+  .bedroom.dropdown {
+    width: 100%;
+    left: 0px;
+  }
+
+  .text_input_wrappers {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
+  .text_input {
+    width: 100%;
+  }
+
+  .range_list_wrapper {
+    text-align: center;
+  }
+
   /* add listing page */
   .addlisting_page_title {
     font-size: 25px;
   }
 }
 
-@media (max-width: 990px) {
+@media (max-width: 1045px) {
+  /* control panel */
+
+  .control_panel_container {
+    padding-inline: 10px;
+  }
   /* filter */
   .filter_section_container {
     padding-top: 38px;
+    padding-inline: 25px;
   }
 
-  .filter_container {
-    flex-wrap: wrap;
-    justify-content: center;
-    row-gap: 12px;
-  }
   .filter_btn_wrapper {
     padding: 2px;
   }
@@ -1053,22 +1094,15 @@ input[type='file'] {
   .form_btn {
     font-size: 10px;
   }
-  .dropdown {
-    height: auto;
-    width: 250px;
-  }
+
   .region.dropdown,
   .price.dropdown,
   .area.dropdown,
   .bedroom.dropdown {
-    top: 30px;
-  }
-  .price.dropdown,
-  .area.dropdown,
-  .bedroom.dropdown {
+    top: 45px;
     height: auto;
-    width: 250px;
   }
+
   .dropdown_btn {
     font-size: 10px;
   }
@@ -1082,12 +1116,43 @@ input[type='file'] {
     width: 230px;
   }
 
-  .text_input_wrappers {
-    flex-direction: column;
-    row-gap: 12px;
+  /* listing  */
+  .listing_container {
+    width: 300px;
+  }
+  .listing_price {
+    font-size: 20px;
   }
 
-  .text_input {
+  .listing_price_section {
+    font-size: 0.7em;
+    row-gap: 16px;
+  }
+
+  .listing_is_rental {
+    top: -280px;
+  }
+}
+
+@media (max-width: 590px) {
+  /* header */
+  header {
+    text-align: center;
+  }
+  /* filter */
+
+  .filter_section_container {
+    padding-bottom: 14px;
+  }
+  .filter_container {
+    flex-direction: column;
     width: 100%;
+  }
+  .filter_btn_wrapper {
+    justify-content: space-between;
+  }
+
+  .region.dropdown, .price.dropdown, .area.dropdown, .bedroom.dropdown {
+    top: 100px;
   }
 }
