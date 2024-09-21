@@ -409,6 +409,9 @@ input[type='number']::-webkit-inner-spin-button {
 }
 
 .agent_modal_content {
+  height: 72.5%;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: #fff;
   padding: 87px 105px;
   border-radius: 10px;
@@ -417,7 +420,6 @@ input[type='number']::-webkit-inner-spin-button {
   flex-direction: column;
   align-items: center;
   row-gap: 61px;
-  overflow-y: auto;
 }
 
 .agent_modal_title {
@@ -1070,6 +1072,12 @@ input[type='file'] {
   .addlisting_page_title {
     font-size: 25px;
   }
+
+  /* listing page */
+
+  .listing_page_main_section_wrapper {
+    width: 100%;
+  }
 }
 
 @media (max-width: 1045px) {
@@ -1141,6 +1149,78 @@ input[type='file'] {
   }
   form {
     width: 520px;
+  }
+
+  /* add agent modal */
+  .agent_modal_content {
+    padding: 30px;
+    row-gap: 30px;
+  }
+  .agent_modal_title {
+    font-size: 16px;
+  }
+  .agent_modal_form_section {
+    flex-direction: column;
+    row-gap: 15px;
+    align-items: center;
+  }
+
+  /* listing page */
+  .listing_page_main_section_wrapper {
+    height: auto;
+  }
+
+  .listing_page_date {
+    font-size: 10px;
+  }
+  .listing_page_main_section_desc_wrapper {
+    padding-block: 0px;
+    width: 70%;
+  }
+  .price_section_title {
+    font-size: 25px;
+  }
+}
+@media (max-width: 850px) {
+  /* listing page */
+  .slider_arrow_left {
+    width: 20px;
+    left: -20px;
+  }
+  .slider_arrow_right {
+    width: 20px;
+    right: -20px;
+  }
+  .similar_listings_title {
+    font-size: 16px;
+  }
+  .listing_page_container {
+    padding: 30px;
+  }
+
+  .listing_page_main_section_wrapper {
+    flex-direction: column;
+    row-gap: 15px;
+    align-items: center;
+  }
+
+  .listing_is_rental.listing_page {
+    display: none;
+  }
+
+  .listing_page_main_section_image_wrapper {
+    min-width: 300px;
+  }
+  .listing_page_main_section_desc_wrapper {
+    width: 100%;
+  }
+
+  .delete_modal_content {
+    row-gap: 15px;
+    padding-block: 25px;
+  }
+  .delete_modal_title {
+    font-size: 16px;
   }
 }
 
