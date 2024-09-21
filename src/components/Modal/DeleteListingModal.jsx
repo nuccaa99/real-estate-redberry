@@ -4,6 +4,7 @@ import { useModal } from '../../contexts/ModalContext';
 import x from '../../assets/x.svg';
 import { deleteData } from '../../api';
 import routes from '../../constants/routes';
+import Error from '../Error';
 
 const DeleteListingModal = ({ id }) => {
   const { setIsDeleteModalOpen } = useModal();
@@ -37,11 +38,7 @@ const DeleteListingModal = ({ id }) => {
   };
 
   if (error) {
-    return (
-      <div>
-        <p className="error_txt">{error}</p>
-      </div>
-    );
+    <Error />;
   }
 
   return (

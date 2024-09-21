@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchData } from '../../api';
 import { PuffLoader } from 'react-spinners';
 import ListingCard from './ListingCard';
+import Error from '../Error';
 import { useFilter } from '../../contexts/FilterContext';
 
 const Homepage = () => {
@@ -27,11 +28,7 @@ const Homepage = () => {
   }, []);
 
   if (error) {
-    return (
-      <div>
-        <p className="error_txt">{error}</p>
-      </div>
-    );
+    <Error />;
   }
 
   return (

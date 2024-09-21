@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import arrowBack from '../assets/arrowBack.svg';
 import { useNavigate } from 'react-router-dom';
 import routes from '../constants/routes';
+import Error from '../components/Error';
 import { useParams } from 'react-router-dom';
 import { fetchListing } from '../api';
 
@@ -45,11 +46,7 @@ const ListingPage = () => {
   const navigate = useNavigate();
 
   if (error) {
-    return (
-      <div>
-        <p className="error_txt">{error}</p>
-      </div>
-    );
+    <Error />;
   }
 
   const regionId = listingData?.city?.region_id || null;

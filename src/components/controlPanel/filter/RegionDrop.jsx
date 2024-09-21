@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useFilter } from '../../../contexts/FilterContext';
 import { fetchData } from '../../../api';
+import Error from '../../Error';
 
 const RegionDrop = () => {
   const {
@@ -48,11 +49,7 @@ const RegionDrop = () => {
   };
 
   if (error) {
-    return (
-      <div>
-        <p className="error_txt">{error}</p>
-      </div>
-    );
+    <Error />;
   }
 
   return (
