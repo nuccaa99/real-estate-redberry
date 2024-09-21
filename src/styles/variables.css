@@ -7,6 +7,7 @@
   --light-font: #021526cc;
   --checkbox-color: #45a849;
   --dark-border-color: #808a93;
+  --on-hover: #df3014;
 
   --filter: invert(50%) sepia(66%) saturate(7469%) hue-rotate(350deg)
     brightness(98%) contrast(99%);

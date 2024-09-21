@@ -51,6 +51,7 @@ button:hover {
   opacity: 0.5;
   cursor: default;
 }
+
 /* header */
 
 header {
@@ -104,6 +105,13 @@ header {
   width: 230px;
   color: #fff;
   background-color: var(--bright-color);
+  transition: 1s all linear;
+}
+
+.controlpanel_btn.add_listing:hover,
+.form_btn.add:hover,
+.dropdown_btn:hover {
+  background-color: var(--on-hover);
 }
 .controlpanel_btn.add_agent,
 .form_btn.cancel {
@@ -111,6 +119,21 @@ header {
   color: var(--bright-color);
   background-color: #fff;
   border: 1px solid var(--bright-color);
+  transition: 1s all linear;
+}
+
+.controlpanel_btn.add_agent:hover,
+.form_btn.cancel:hover {
+  color: #fff;
+  background-color: var(--bright-color);
+}
+
+.controlpanel_btn.add_agent > img {
+  transition: 2s all linear;
+}
+.controlpanel_btn.add_agent:hover > img {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(0deg)
+    brightness(200%) contrast(200%);
 }
 /* filter  */
 
@@ -232,6 +255,7 @@ header {
   color: #fff;
   font-size: 14px;
   line-height: 16.8px;
+  transition: 1s all linear;
 }
 
 input[type='checkbox'] {
@@ -867,6 +891,11 @@ input[type='file'] {
   border-radius: 8px;
   background-color: transparent;
   color: #676e76;
+  transition: 1s all linear;
+}
+.agent_page_delete_btn:hover {
+  color: #fff;
+  background-color: #676e76;
 }
 
 .listing_is_rental.listing_page {
