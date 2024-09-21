@@ -1,15 +1,20 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
   const [regions, setRegions] = useState([]);
 
-  const [filters, setFilters] = useState({
-    region: [],
-    priceRange: { min: '', max: '' },
-    areaRange: { min: '', max: '' },
-    bedroom: '',
+  const [filters, setFilters] = useState(() => {
+    const savedFilters = localStorage.getItem('filters');
+    return savedFilters
+      ? JSON.parse(savedFilters)
+      : {
+          region: [],
+          priceRange: { min: '', max: '' },
+          areaRange: { min: '', max: '' },
+          bedroom: '',
+        };
   });
 
   const [listings, setListings] = useState([]);
@@ -19,6 +24,11 @@ export const FilterProvider = ({ children }) => {
   const [isOpenPrice, setIsOpenPrice] = useState(false);
   const [isOpenArea, setIsOpenArea] = useState(false);
   const [isOpenBedroom, setIsOpenBedroom] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('filters', JSON.stringify(filters));
+    filterListings(filters);
+  }, [filters, listings]);
 
   const updateFilter = (key, value) => {
     setFilters((prev) => {
