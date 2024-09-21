@@ -16,7 +16,7 @@ import routes from '../constants/routes';
 const AddListing = () => {
   const navigate = useNavigate();
 
-  const { addListing, regions, setRegions } = useFilter();
+  const { regions, setRegions } = useFilter();
   const { agents } = useAgent();
 
   const [listing, setListing] = useState({

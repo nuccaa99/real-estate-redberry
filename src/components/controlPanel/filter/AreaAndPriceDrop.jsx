@@ -14,6 +14,7 @@ const AreaAndPriceDrop = ({ type, data, title, isOpen, setIsOpen }) => {
 
   useEffect(() => {
     validateRange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localRange]);
 
   const handleInputChange = (subKey, value) => {
