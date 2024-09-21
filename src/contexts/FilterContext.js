@@ -4,6 +4,7 @@ const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
   const [regions, setRegions] = useState([]);
+  const [agents, setAgents] = useState([]);
 
   const [filters, setFilters] = useState(() => {
     const savedFilters = localStorage.getItem('filters');
@@ -17,7 +18,11 @@ export const FilterProvider = ({ children }) => {
         };
   });
 
-  const [listings, setListings] = useState([]);
+  const [listings, setListings] = useState(() => {
+    const savedListings = localStorage.getItem('listings');
+    return savedListings ? JSON.parse(savedListings) : [];
+  });
+
   const [filteredListings, setFilteredListings] = useState([]);
 
   const [isOpenRegion, setIsOpenRegion] = useState(false);
@@ -27,6 +32,8 @@ export const FilterProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('filters', JSON.stringify(filters));
+    localStorage.setItem('listings', JSON.stringify(listings));
+
     filterListings(filters);
   }, [filters, listings]);
 
@@ -83,6 +90,22 @@ export const FilterProvider = ({ children }) => {
     setFilteredListings(filtered);
   };
 
+  const addListing = (newListing) => {
+    setListings((prevListings) => {
+      const updatedListings = [...prevListings, newListing];
+      localStorage.setItem('listings', JSON.stringify(updatedListings));
+      return updatedListings;
+    });
+  };
+
+  const addAgent = (newAgent) => {
+    setAgents((prev) => {
+      const updatedAgents = [...prev, newAgent];
+      localStorage.setItem('agents', JSON.stringify(updatedAgents));
+      return updatedAgents;
+    });
+  };
+
   return (
     <FilterContext.Provider
       value={{
@@ -98,12 +121,16 @@ export const FilterProvider = ({ children }) => {
         isOpenArea,
         setRegions,
         regions,
+        setAgents,
+        agents,
         setFilters,
         filterListings,
         listings,
         setListings,
         filteredListings,
         setFilteredListings,
+        addListing,
+        addAgent,
       }}
     >
       {children}

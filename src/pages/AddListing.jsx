@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import circle from '../assets/plus-circle.svg';
 
 import { fetchData, postData } from '../api/index';
+import { useFilter } from '../contexts/FilterContext';
 
 import FormDropdown from '../components/addListingForm/FormDropdown';
 import ValidationWarning from '../components/addListingForm/ValidationWarning';
@@ -13,6 +14,8 @@ import routes from '../constants/routes';
 
 const AddListing = () => {
   const navigate = useNavigate();
+
+  const { addListing, regions, setRegions, agents, setAgents } = useFilter();
 
   const [listing, setListing] = useState({
     price: '',
@@ -28,9 +31,7 @@ const AddListing = () => {
     image: '',
   });
 
-  const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState([]);
-  const [agents, setAgents] = useState([]);
 
   const [filteredCities, setFilteredCities] = useState([]);
 
@@ -59,24 +60,39 @@ const AddListing = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    Promise.all([
-      fetchData('regions'),
-      fetchData('cities'),
-      fetchData('agents'),
-    ])
-      .then(([regionsData, citiesData, agentsData]) => {
-        setRegions(regionsData);
-        setCities(citiesData);
-        setAgents(agentsData);
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setIsLoading(false));
+    const storedRegions = JSON.parse(localStorage.getItem('regions'));
+    const storedCities = JSON.parse(localStorage.getItem('cities'));
+    const storedAgents = JSON.parse(localStorage.getItem('agents'));
+
+    if (storedRegions && storedCities && storedAgents) {
+      setRegions(storedRegions);
+      setCities(storedCities);
+      setAgents(storedAgents);
+      setIsLoading(false);
+    } else {
+      Promise.all([
+        fetchData('regions'),
+        fetchData('cities'),
+        fetchData('agents'),
+      ])
+        .then(([regionsData, citiesData, agentsData]) => {
+          setRegions(regionsData);
+          setCities(citiesData);
+          setAgents(agentsData);
+          localStorage.setItem('regions', JSON.stringify(regionsData));
+          localStorage.setItem('cities', JSON.stringify(citiesData));
+          localStorage.setItem('agents', JSON.stringify(agentsData));
+        })
+        .catch((err) => setError(err.message))
+        .finally(() => setIsLoading(false));
+    }
   }, []);
 
   const handlePosting = async (formData) => {
     try {
       // eslint-disable-next-line no-unused-vars
       const response = await postData('real-estates', formData);
+      addListing(listing);
       navigate(routes.home);
     } catch (error) {
       setError(error.message);

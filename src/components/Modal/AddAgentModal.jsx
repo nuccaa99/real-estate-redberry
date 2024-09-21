@@ -6,9 +6,11 @@ import { postData } from '../../api';
 import circle from '../../assets/plus-circle.svg';
 import deleteIcon from '../../assets/delete.svg';
 import { useModal } from '../../contexts/ModalContext';
+import { useFilter } from '../../contexts/FilterContext';
 
 const AddAgentModal = () => {
   const { setIsAgentModalOpen } = useModal();
+  const { addAgent } = useFilter();
 
   const modalRef = useRef();
 
@@ -86,6 +88,7 @@ const AddAgentModal = () => {
     try {
       const response = await postData('agents', formData);
       console.log('POST success:', response);
+      addAgent(agent);
       setIsAgentModalOpen(false);
     } catch (error) {
       console.error('POST error:', error.message);
