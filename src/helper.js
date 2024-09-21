@@ -9,7 +9,7 @@ export const SELECTION_TYPES = {
 const NUMBERREGEX = /^\d+$/;
 const DECIMALREGEX = /^[0-9.,]+$/;
 const EMAILREGEX = /^[a-zA-Z0-9._%+-]+@redberry\.ge$/;
-const STARTS_WITH_5_REGEX = /^5[0-9]*$/;
+const STARTS_WITH_5_REGEX = /^5[0-9]{8}$/;
 
 export const validationRules = {
   address: (value) => value.length >= 2,
