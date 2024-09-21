@@ -178,7 +178,9 @@ header {
 .selected_filters_container {
   display: flex;
   align-items: center;
-  column-gap: 8px;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .selected_filter_item {

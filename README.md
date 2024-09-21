@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Environment Setup
 
-Before running the project, you need to set up an environment variable for the API key.
+Before running the project, you need to set up an environment variable for the API key.\
 Create a **.env** file in the root directory of the project and add the following:
 
 #### `REACT_APP_API_KEY=your-api-token`
