@@ -34,7 +34,7 @@ export const FilterProvider = ({ children }) => {
     localStorage.setItem('listings', JSON.stringify(listings));
 
     filterListings(filters);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, listings]);
 
   const updateFilter = (key, value) => {
