@@ -86,7 +86,7 @@ const AddListing = () => {
         .catch((err) => setError(err.message))
         .finally(() => setIsLoading(false));
     }
-  }, []);
+  }, [setAgents, setRegions]);
 
   const handlePosting = async (formData) => {
     try {

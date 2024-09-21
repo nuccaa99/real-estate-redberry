@@ -98,14 +98,6 @@ export const FilterProvider = ({ children }) => {
     });
   };
 
-  const addAgent = (newAgent) => {
-    setAgents((prev) => {
-      const updatedAgents = [...prev, newAgent];
-      localStorage.setItem('agents', JSON.stringify(updatedAgents));
-      return updatedAgents;
-    });
-  };
-
   return (
     <FilterContext.Provider
       value={{
@@ -130,7 +122,6 @@ export const FilterProvider = ({ children }) => {
         filteredListings,
         setFilteredListings,
         addListing,
-        addAgent,
       }}
     >
       {children}
